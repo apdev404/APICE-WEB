@@ -1,6 +1,9 @@
 <script lang="ts">
     import Galeria from "$lib/components/galeria/Galeria.svelte"
     import Section from "$lib/components/section/Section.svelte"
+    import Cards from "$lib/components/cards/cards.svelte"
+
+
 </script>
 
 <Galeria 
@@ -35,7 +38,7 @@
     </a>
 </Galeria>
 
-<Section class="text-center">
+<Section class="py-20 lg:py-28">
     <h1 class="text-4xl font-heading font-bold text-primary mb-6">
         Bienvenidos a APICE
     </h1>
@@ -44,3 +47,16 @@
         y educación de calidad para el desarrollo profesional y personal.
     </p>
 </Section>
+
+<Section class="py-20 lg:py-28">
+    <h1 class="text-4xl font-heading font-bold text-primary mb-6">
+        Capacitate con nosotros
+    </h1>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Cards/>
+        <Cards/>
+    </div>
+</Section>
+
+

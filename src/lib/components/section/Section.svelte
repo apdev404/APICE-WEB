@@ -1,10 +1,12 @@
 <script lang="ts">
-    let { children, className = '', margin = 'my-16' } = $props();
+    let { children, class: className = '' } = $props();
 </script>
 
-<section class="w-full bg-whiteBGLite text-primaryFontColor py-20 lg:py-28 {margin}">
+<section 
+    class="w-full bg-whiteBGLite text-primaryFontColor {className}"
+>
     <div class="max-w-6xl mx-auto px-6 lg:px-8">
-        <div class="prose prose-lg max-w-none text-primaryFontColor leading-relaxed {className}">
+        <div class="prose prose-lg max-w-none text-primaryFontColor leading-relaxed">
             {@render children()}
         </div>
     </div>
