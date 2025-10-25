@@ -43,7 +43,7 @@
 
 
 <Header />
-<main class="bg-primary text-whiteColor ">
+<main class="bg-primary text-whiteColor">
     {@render children()}
 </main>
 
