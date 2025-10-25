@@ -2,6 +2,7 @@
 	import Header from "../lib/components/header/Header.svelte"
     let { children } = $props();
     import '../app.css';
+    import Footer from "$lib/components/footer/Footer.svelte";
 
 </script>
 
@@ -42,7 +43,12 @@
 
 
 <Header />
-<main>
+<main class="bg-primary text-whiteColor ">
     {@render children()}
 </main>
+
+
+<Footer />
+
+
 

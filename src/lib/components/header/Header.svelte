@@ -17,7 +17,7 @@
     ]
 </script>
 
-<header class="bg-primary border-b border-gray-200 px-4 sm:px-6 lg:px-10">
+<header class="bg-primary px-4 sm:px-6 lg:px-10">
     <div class="h-full">
         <!-- Navbar Principal -->
         <nav class="flex justify-between items-center h-16 lg:flex">
