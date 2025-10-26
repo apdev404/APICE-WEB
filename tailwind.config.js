@@ -9,6 +9,8 @@ export default {
 				'whiteColor': '#F5FBFF',
 				'whiteBGLite': '#e7e8e8ff',
 				'primaryFontColor': '#030b0fff',
+				'greenAP': '#043939',
+				'greenLight': '#034450',
 			},
 			fontFamily: {
 				'sans': ['Inter', 'system-ui', 'sans-serif'],

@@ -22,7 +22,7 @@
     
     <!-- Estado de disponibilidad -->
     <div class="absolute top-4 left-4">
-      <span class:bg-green-500={disponible} class:bg-gray-500={!disponible} 
+      <span class:bg-greenLight={disponible} class:bg-secondary={!disponible} 
              class="text-white text-sm font-semibold px-3 py-1 rounded-full flex items-center gap-2 backdrop-blur-sm">
         <div class="w-2 h-2 rounded-full bg-white"></div>
         {disponible ? 'Disponible' : 'No disponible'}

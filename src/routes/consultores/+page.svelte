@@ -53,7 +53,7 @@
         telefono: "+549115554321", 
         email: "m.gonzalez@apice.com"
       },
-      disponible: true
+      disponible: false
     }
 
   ];

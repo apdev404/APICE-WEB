@@ -1,6 +1,7 @@
 <script lang="ts">  
 </script>
 
+
 <footer class="bg-primary text-whiteColor">
   <!-- Sección principal -->
   <div class="container mx-auto px-6 py-12">
@@ -24,6 +25,9 @@
         <h4 class="font-heading font-semibold mb-4 text-lg">Navegación</h4>
         <div class="flex flex-col space-y-2 font-sans">
           <a href="/home" class="hover:text-secondary transition-colors opacity-90 hover:opacity-100">Inicio</a>
+          <a href="/about" class="hover:text-secondary transition-colors opacity-90 hover:opacity-100">¿Quienes somos?</a>
+          <a href="/capacitaciones" class="hover:text-secondary transition-colors opacity-90 hover:opacity-100">Capacitaciones</a>
+          <a href="/consultores" class="hover:text-secondary transition-colors opacity-90 hover:opacity-100">Consultores</a>
           <a href="/servicios" class="hover:text-secondary transition-colors opacity-90 hover:opacity-100">Servicios</a>
           <a href="/contacto" class="hover:text-secondary transition-colors opacity-90 hover:opacity-100">Contacto</a>
         </div>
