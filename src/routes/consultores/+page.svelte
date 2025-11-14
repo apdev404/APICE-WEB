@@ -99,15 +99,15 @@
       <label for="buscador" class="block text-lg font-semibold text-primary mb-4 text-center">
         Encontrá al consultor ideal
       </label>
-      <div class="relative max-w-2xl mx-auto">
+       <div class="relative max-w-2xl mx-auto">
         <input 
           id="buscador"
           type="text" 
           bind:value={terminoBusqueda}
-          placeholder="Buscar por nombre o especialidad..."
-          class="w-full px-6 py-4  focus:ring-2 transition-all text-whiteColor shadow-sm"
+          placeholder="Buscar por título, categoría o docente..."
+          class="w-full px-6 py-4 bg-primary text-whiteColor rounded-xl focus:ring-2 focus:ring-secondary transition-all shadow-sm outline-none placeholder-white/40"
         />
-        <div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+        <div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/60">
           <i class="ph-thin ph-magnifying-glass text-2xl"></i>
         </div>
       </div>
