@@ -4,7 +4,6 @@
   import { Autoplay, EffectFade } from 'swiper/modules';
   import 'swiper/css';
   import 'swiper/css/effect-fade';
-  import { Children } from 'react';
 
   let swiperEl: HTMLElement | null = null;
   const { images, children} = $props();

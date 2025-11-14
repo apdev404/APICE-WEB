@@ -3,7 +3,7 @@
 </script>
 
 <section 
-    class="w-full bg-whiteBGLite text-primaryFontColor {className}"
+    class="w-full text-primaryFontColor {className}"
 >
     <div class="max-w-6xl mx-auto px-6 lg:px-8">
         <div class="prose prose-lg max-w-none text-primaryFontColor leading-relaxed">

@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { page } from '$app/stores';
+
     let isMenuOpen = $state(false);
 
     type Menu = {
@@ -64,9 +66,9 @@
             <!-- Menú Desktop (derecha) -->
             <div class="font-heading flex flex-row justify-center items-center space-x-2 h-full hidden lg:flex">
                 {#each listaMenu as elemento (elemento.nombreURL)}
-                    <a 
+                   <a 
                         href={elemento.nombreURL}
-                        class="flex items-center py-2 px-2 text-white hover:bg-secondary hover:text-primary transition-all duration-300 font-medium group relative overflow-hidden h-full"
+                        class="flex items-center py-2 px-2 hover:bg-secondary hover:text-primary transition-all duration-300 font-medium group relative overflow-hidden h-full {$page.url.pathname === elemento.nombreURL ? 'text-secondary' : 'text-whiteColor'}"
                     >
                         {elemento.nombreMenu}
                     </a>
@@ -81,7 +83,7 @@
                 {#each listaMenu as elemento (elemento.nombreURL)}
                     <a 
                         href={elemento.nombreURL}
-                        class="flex items-center py-4 px-6 text-white hover:bg-secondary hover:text-primary transition-all duration-300 border-b border-white/10 last:border-b-0 group"
+                        class="flex items-center py-4 px-6 text-white hover:bg-secondary hover:text-primary transition-all duration-300 border-b border-white/10 last:border-b-0 group {$page.url.pathname === elemento.nombreURL ? 'bg-secondary text-primary' : ''}"
                         on:click={() => isMenuOpen = false}
                     >
                         <i class="{elemento.logoMobile} mr-4 text-xl group-hover:scale-110 transition-transform duration-300"></i>

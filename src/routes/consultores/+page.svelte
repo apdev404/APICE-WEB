@@ -92,7 +92,7 @@
 </section>
 
 <!-- Buscador y Filtros -->
-<Section class="py-10 lg:py-20">
+<Section class="py-10 lg:py-20 bg-whiteBGLite">
   <div class="max-w-4xl mx-auto px-6">
     <!-- Buscador -->
     <div class="mb-8">
@@ -125,7 +125,7 @@
 
 
 <!-- Grid de Consultores -->
-<Section class={"pb-16 lg:pb-20"}>
+<Section class={"pb-16 lg:pb-20 bg-whiteBGLite"}>
   <div class="max-w-7xl mx-auto px-6">
     {#if consultoresFiltrados.length > 0}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

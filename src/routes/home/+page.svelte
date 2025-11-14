@@ -151,7 +151,7 @@
                 <a href="/servicios" class="bg-secondary hover:bg-orange-600 text-whiteColor font-semibold py-3 px-8 rounded-lg transition-colors text-center">
                     Nuestros Servicios
                 </a>
-                <a href="/contacto" class="border-2 border-greenAP text-greenAP hover:bg-greenAP hover:text-whiteColor font-semibold py-3 px-8 rounded-lg transition-colors text-center">
+                <a href="/consultores" class="border-2 border-greenAP text-greenAP hover:bg-greenAP hover:text-whiteColor font-semibold py-3 px-8 rounded-lg transition-colors text-center">
                     Contactar Consultor
                 </a>
             </div>
@@ -223,7 +223,7 @@
     </div>
 
     <div class="text-center mt-12">
-        <a href="/blog" class="border-2 border-greenAP text-greenAP hover:bg-greenAP hover:text-whiteColor font-semibold py-3 px-8 rounded-lg transition-colors inline-flex items-center">
+        <a href="/capacitaciones" class="border-2 border-greenAP text-greenAP hover:bg-greenAP hover:text-whiteColor font-semibold py-3 px-8 rounded-lg transition-colors inline-flex items-center">
             Ver todas las publicaciones
             <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -232,7 +232,7 @@
     </div>
 </Section>
 
-<Section class="py-20 lg:py-28 bg-primary text-primary">
+<Section class="py-20 lg:py-28 bg-primary text-primary bg-whiteBGLite">
     <div class="text-center max-w-3xl mx-auto">
         <h2 class="text-3xl lg:text-4xl font-heading font-bold mb-6">
             ¿Listo para Expandir su Alcance Global?

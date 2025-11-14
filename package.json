@@ -18,13 +18,15 @@
 		"test": "vitest",
 		"test:coverage": "vitest run --coverage",
 		"test:manual:e2e": "playwright test --ui",
-		"test:all": "npm run test:unit -- --run && npm run test:automated:e2e"
+		"test:all": "npm run test:unit -- --run && npm run test:automated:e2e",
+		"deploy": "npm run build && npx gh-pages -d build"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",
 		"@eslint/js": "^9.18.0",
 		"@playwright/test": "^1.49.1",
 		"@sveltejs/adapter-auto": "^6.0.0",
+		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.22.0",
 		"@sveltejs/vite-plugin-svelte": "^6.0.0",
 		"@tailwindcss/forms": "^0.5.7",
