@@ -10,7 +10,7 @@
             duracion: "6 semanas",
             modalidad: "Online",
             descripcion: "Un análisis profundo sobre la influencia estratégica de China en la región, sus iniciativas de comercio, inversión y cooperación internacional.",
-            imagen: "https://images.unsplash.com/photo-1528291151374-811bc159d227?w=800",
+            imagen: "https://fotos.perfil.com/2024/11/15/xi-jinping-america-latina-20241114-1912319.jpg",
             docente: "Emb. Laura Fernández",
             cupos: 40,
             disponible: true
@@ -79,7 +79,7 @@
 </script>
 
 <!-- HERO -->
-<Section class="bg-primary text-white py-20">
+<Section class="bg-primary text-white py-20 ">
   <div class="max-w-5xl mx-auto text-center px-6">
     <h1 class="text-4xl md:text-5xl font-bold tracking-tight">
       Capacitate con los líderes del mañana

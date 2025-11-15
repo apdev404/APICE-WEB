@@ -40,15 +40,23 @@
       </span>
     </div>
 
-    <div class="mt-4">
-      <button
-        class="btn btn-primary btn-sm w-full rounded-full"
-        on:click={() => showModal = true}
-        disabled={!cap.disponible}
-      >
-        Ver más
-      </button>
-    </div>
+   <div
+    class={
+      "mt-4 w-full text-center font-semibold py-3 rounded-lg transition-all flex items-center justify-center gap-2 border " +
+      (cap.disponible
+        ? "border-primary text-primary hover:bg-primary hover:text-whiteColor cursor-pointer"
+        : "border-gray-300 text-gray-400 bg-gray-100 opacity-60 cursor-not-allowed")
+    }
+  >
+    <button
+      class="w-full"
+      on:click={() => cap.disponible && (showModal = true)}
+      disabled={!cap.disponible}
+    >
+      {cap.disponible ? "Ver más" : "Sin cupo"}
+    </button>
+  </div>
+
   </div>
 </div>
 
@@ -61,36 +69,45 @@
   <div 
     class="bg-whiteColor rounded-2xl shadow-2xl max-w-lg w-full p-8 mx-4 animate-scaleIn border border-primary/10"
   >
+    <!-- Título -->
     <h3 class="text-2xl font-heading font-semibold text-primary mb-4">
       {cap.titulo}
     </h3>
 
-    <p class="text-primaryFontColor leading-relaxed mb-4">
+    <!-- Descripción -->
+    <p class="text-primaryFontColor leading-relaxed mb-6 text-[15px]">
       {cap.descripcion}
     </p>
 
+    <!-- Badges -->
     <div class="flex flex-wrap gap-3 mb-6">
-      <span class="badge badge-outline">{cap.duracion}</span>
-      <span class="badge badge-outline">{cap.modalidad}</span>
-      <span class="badge bg-secondary/20 text-secondary border-none">
+      <span class="badge badge-outline text-sm px-3 py-2">{cap.duracion}</span>
+      <span class="badge badge-outline text-sm px-3 py-2">{cap.modalidad}</span>
+      <span class="badge bg-secondary/20 text-secondary border-none text-sm px-3 py-2">
         {cap.categoria}
       </span>
     </div>
 
-    <p class="text-sm text-gray-600 mb-4">
+    <!-- Docente -->
+    <p class="text-sm text-gray-600 mb-2">
       Docente: <span class="font-semibold">{cap.docente}</span>
     </p>
 
-    <div class="flex justify-end gap-3 mt-6">
+    <!-- Acciones -->
+    <div class="flex justify-end gap-3 mt-8">
+      <!-- Botón cerrar -->
       <button 
-        class="btn rounded-full"
+        class="px-5 py-2.5 rounded-lg border border-primary text-primary font-semibold 
+               hover:bg-primary hover:text-whiteColor transition-all"
         on:click={() => showModal = false}
       >
         Cerrar
       </button>
 
+      <!-- Botón inscribirme -->
       <button 
-        class="btn bg-secondary text-white rounded-full hover:bg-secondary/90"
+        class="px-5 py-2.5 rounded-lg bg-secondary text-white font-semibold 
+               hover:bg-secondary/90 transition-all shadow-md"
       >
         Inscribirme
       </button>
@@ -98,6 +115,7 @@
   </div>
 </div>
 {/if}
+
 
 
 <style>
