@@ -15,6 +15,7 @@
         { texto: "Capacitaciones incluidas", activo: false },
         { texto: "Acceso a capacitaciones grupales", activo: false },
       ],
+      bgColor: "greenLight"
     },
     {
       nombre: "Profesional",
@@ -29,6 +30,7 @@
         { texto: "Acceso a capacitaciones grupales", activo: true },
         { texto: "Capacitación incluida sin cargo", activo: false },
       ],
+      bgColor: "greenAP"
     },
     {
       nombre: "Corporativo",
@@ -42,6 +44,7 @@
         { texto: "Acceso prioritario a todos los cursos", activo: true },
         { texto: "Soporte personalizado", activo: true },
       ],
+      bgColor: "secondary"
     },
   ];
 </script>
@@ -66,6 +69,7 @@
               precio={m.precio}
               tag={m.tag}
               icono={m.icono}
+              bgColor={m.bgColor}
               publico={m.publico}
               destacado={m.destacado}
               beneficios={m.beneficios}

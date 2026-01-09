@@ -53,6 +53,22 @@
     {@render children()}
 </main>
 
+<a
+  href="https://wa.me/54911XXXXXXXX"
+  target="_blank"
+  class="
+    fixed bottom-4 right-4 z-50
+    w-14 h-14 rounded-full
+    bg-greenLight hover:bg-green-600
+    flex items-center justify-center
+    shadow-lg hover:shadow-2xl
+    transition-all duration-300
+  "
+  aria-label="WhatsApp"
+>
+  <i class="ph ph-whatsapp-logo text-white text-3xl"></i>
+</a>
+
 
 <Footer />
 

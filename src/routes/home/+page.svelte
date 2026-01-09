@@ -3,7 +3,7 @@
     import Section from "$lib/components/section/Section.svelte"
     import Cards from "$lib/components/cards/cards.svelte"
     import ButtonLink from "$lib/components/buttons/ButtonLink.svelte";
-
+    import CardArticulo from "$lib/components/cards/CardArticulo.svelte";
 
     const servicios = [
         {
@@ -212,29 +212,18 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {#each publicaciones as publicacion}
-            <div class="bg-whiteColor rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <div class="p-6">
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="bg-greenLight/10 text-greenLight text-xs px-3 py-1 rounded-full">{publicacion.category}</span>
-                        <span class="text-primaryFontColor/60 text-sm">{publicacion.date}</span>
-                    </div>
-                    <h3 class="font-heading text-xl font-semibold text-primary mb-3">{publicacion.title}</h3>
-                    <p class="text-primaryFontColor mb-4 font-alternative leading-relaxed">
-                        {publicacion.excerpt}
-                    </p>
-                    <a href={publicacion.link} class="text-secondary hover:text-greenAP font-medium text-sm inline-flex items-center">
-                        Leer análisis
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
+            <CardArticulo
+            categoria={publicacion.category}
+            fecha={publicacion.date}
+            titulo={publicacion.title}
+            descripcion={publicacion.excerpt}
+            link={publicacion.link}
+            />
         {/each}
     </div>
 
     <div class="text-center mt-12">
-        <a href="/capacitaciones" class="border-2 border-greenAP text-greenAP hover:bg-greenAP hover:text-whiteColor font-semibold py-3 px-8 rounded-lg transition-colors inline-flex items-center">
+        <a href="/articulos" class="border-2 border-greenAP text-greenAP hover:bg-greenAP hover:text-whiteColor font-semibold py-3 px-8 rounded-lg transition-colors inline-flex items-center">
             Ver todas las publicaciones
             <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>

@@ -1,10 +1,14 @@
 <script>
+  import ButtonLink from "../buttons/ButtonLink.svelte";
+
+
   const {
     nombre,
     precio,
     tag = "",
     icono,
     publico,
+    bgColor = "",
     beneficios = [],
     destacado = false
   } = $props();
@@ -17,7 +21,7 @@
   <div class="card-body">
 
     {#if tag}
-      <span class="badge badge-secondary badge-sm mb-2">{tag}</span>
+      <span class="badge badge-sm mb-2 {bgColor}">{tag}</span>
     {/if}
 
     <div class="flex items-center justify-between">
@@ -42,9 +46,10 @@
     </ul>
 
     <div class="mt-8">
-      <button class="btn btn-primary btn-block">
-        Elegir {nombre}
-      </button>
+      <ButtonLink>
+        Seleccionar
+      </ButtonLink>
+      
     </div>
 
   </div>

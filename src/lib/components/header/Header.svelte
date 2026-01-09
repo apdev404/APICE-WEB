@@ -13,6 +13,7 @@
         {nombreURL: '/home', nombreMenu: 'INICIO', logoMobile: 'ph ph-house'},
         {nombreURL: '/about', nombreMenu: '¿QUIENES SOMOS?', logoMobile: 'ph ph-info'},
         {nombreURL: '/servicios', nombreMenu: 'SERVICIOS', logoMobile: 'ph ph-briefcase'},
+        {nombreURL: '/articulos', nombreMenu: 'ARTICULOS', logoMobile: 'ph ph-article-ny-times'},
         {nombreURL: '/membresias', nombreMenu: 'MEMBRESIAS', logoMobile: 'ph ph-medal'},
         {nombreURL: '/contacto', nombreMenu: 'CONTACTO', logoMobile: 'ph ph-chat'},
     ]
