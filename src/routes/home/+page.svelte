@@ -2,31 +2,44 @@
     import Galeria from "$lib/components/galeria/Galeria.svelte"
     import Section from "$lib/components/section/Section.svelte"
     import Cards from "$lib/components/cards/cards.svelte"
+    import ButtonLink from "$lib/components/buttons/ButtonLink.svelte";
 
-    const serviciosDestacados = [
+
+    const servicios = [
         {
-            icon: "M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z",
-            title: "Diplomacia Corporativa",
-            description: "Gestión estratégica de relaciones con gobiernos y organismos internacionales.",
-            link: "/servicios/diplomacia"
+        icono: "ph ph-globe-hemisphere-west",
+        titulo: "Comercio Exterior",
+        texto:
+            "Asesoramiento experto para instituciones, empresas y gobiernos en temas de geopolítica, diplomacia y análisis internacional.",
+        link: "comExt"
         },
         {
-            icon: "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H6a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3z",
-            title: "Comercio Exterior",
-            description: "Asesoramiento integral en operaciones de importación y exportación.",
-            link: "/servicios/comercio"
+        icono: "ph ph-chalkboard-teacher",
+        titulo: "Diplomacia Corporativa",
+        texto:
+            "Programas formativos personalizados, adaptados a las necesidades de cada equipo o institución.",
+        link: "dipCorpo"
         },
         {
-            icon: "M17 20h5v-2a3 3 0 0 0-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 0 1 5.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 0 1 9.288 0M15 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm6 3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM7 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0z",
-            title: "Relaciones Internacionales",
-            description: "Desarrollo de estrategias para la expansión global de su organización.",
-            link: "/servicios/relaciones-internacionales"
+        icono: "ph ph-handshake",
+        titulo: "Relaciones internacionales",
+        texto:
+            "Entrenamiento y acompañamiento en procesos de negociación multilateral y diplomática.",
+        link: "relIntern"
         },
         {
-            icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0 1 12 2.944a11.955 11.955 0 0 1-8.618 3.04A12.02 12.02 0 0 0 3 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
-            title: "Análisis Geopolítico",
-            description: "Evaluación de riesgos y oportunidades en escenarios internacionales.",
-            link: "/servicios/analisis-geopolitico"
+        icono: "ph ph-briefcase",
+        titulo: "Analisis geopolitico",
+        texto:
+            "Acompañamiento integral en estrategias de exportación, competitividad y acuerdos comerciales.",
+        link: "anGeo"
+        },
+        {
+        icono: "ph ph-briefcase",
+        titulo: "Capacitaciones y Formacion Empresarial",
+        texto:
+            "Accede a nuestras capacitaciones con nuestras membresias",
+        link: "capFormEmpre"
         }
     ];
 
@@ -96,24 +109,21 @@
             Nuestros Servicios Especializados
         </h2>
         <p class="text-xl text-primaryFontColor/80 max-w-2xl mx-auto font-alternative">
-            Soluciones integrales para la expansión y consolidación internacional de su organización
-        </p>
+            Impulsamos a las empresas a operar internacionalmente con estrategias personalizadas de Comercio Exterior, alianzas globales y gestión eficiente de operaciones        </p>
         <div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {#each serviciosDestacados as servicio}
+        {#each servicios as servicio}
             <div class="bg-whiteColor rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-whiteBGLite group">
                 <div class="w-12 h-12 bg-greenLight rounded-lg flex items-center justify-center mb-4 group-hover:bg-greenAP transition-colors">
-                    <svg class="w-6 h-6 text-whiteColor" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={servicio.icon}></path>
-                    </svg>
+                        <i class={"text-whiteColor text-3xl " + servicio.icono}></i>
                 </div>
-                <h3 class="font-heading text-xl font-semibold text-primary mb-3">{servicio.title}</h3>
+                <h3 class="font-heading text-xl font-semibold text-primary mb-3">{servicio.titulo}</h3>
                 <p class="text-primaryFontColor mb-4 font-alternative leading-relaxed">
-                    {servicio.description}
+                    {servicio.texto}
                 </p>
-                <a href={servicio.link} class="text-secondary hover:text-greenAP font-medium text-sm inline-flex items-center group/link">
+                <a href={"/servicios#"+servicio.link} class="text-secondary hover:text-greenAP font-medium text-sm inline-flex items-center group/link">
                     Saber más
                     <svg class="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -124,7 +134,7 @@
     </div>
 </Section>
 
-<Section class="py-20 lg:py-28 bg-greenAP text-whiteColor">
+<Section class="py-20 lg:py-28 bg-primary text-whiteColor">
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
         {#each estadisticas as stat}
             <div class="space-y-2">
@@ -148,15 +158,16 @@
                 Nuestro equipo de profesionales con trayectoria en organismos internacionales, gobiernos y corporaciones multinacionales garantiza un abordaje integral y efectivo.
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
-                <a href="/servicios" class="bg-secondary hover:bg-orange-600 text-whiteColor font-semibold py-3 px-8 rounded-lg transition-colors text-center">
+                <ButtonLink tipo="primary" href="/servicios">
                     Nuestros Servicios
-                </a>
-                <a href="/consultores" class="border-2 border-greenAP text-greenAP hover:bg-greenAP hover:text-whiteColor font-semibold py-3 px-8 rounded-lg transition-colors text-center">
+                </ButtonLink>
+
+                <ButtonLink tipo="outline" href="/servicios#consultores">
                     Contactar Consultor
-                </a>
+                </ButtonLink>
             </div>
         </div>
-        <div class="bg-greenLight rounded-2xl p-8 text-whiteColor">
+        <div class="bg-primary rounded-2xl p-8 text-whiteColor">
             <h3 class="font-heading text-2xl font-semibold mb-6">¿Por qué elegirnos?</h3>
             <ul class="space-y-4 font-alternative">
                 <li class="flex items-start">

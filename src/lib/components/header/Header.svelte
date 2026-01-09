@@ -12,9 +12,8 @@
     let listaMenu: Menu[] = [
         {nombreURL: '/home', nombreMenu: 'INICIO', logoMobile: 'ph ph-house'},
         {nombreURL: '/about', nombreMenu: '¿QUIENES SOMOS?', logoMobile: 'ph ph-info'},
-        {nombreURL: '/capacitaciones', nombreMenu: 'CAPACITACIONES', logoMobile: 'ph ph-book-open-text'},
-        {nombreURL: '/consultores', nombreMenu: 'CONSULTORES', logoMobile: 'ph ph-chalkboard-teacher'},
         {nombreURL: '/servicios', nombreMenu: 'SERVICIOS', logoMobile: 'ph ph-briefcase'},
+        {nombreURL: '/membresias', nombreMenu: 'MEMBRESIAS', logoMobile: 'ph ph-medal'},
         {nombreURL: '/contacto', nombreMenu: 'CONTACTO', logoMobile: 'ph ph-chat'},
     ]
 </script>

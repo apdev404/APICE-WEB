@@ -1,42 +1,44 @@
 <script>
   import Section from "$lib/components/section/Section.svelte";
+  import Capacitaciones from "$lib/components/capacitaciones/Capacitaciones.svelte";
+  import Consultores from "$lib/components/consultores/Consultores.svelte";
+
 
   const servicios = [
     {
       icono: "ph ph-globe-hemisphere-west",
-      titulo: "Consultoría Estratégica",
+      titulo: "Comercio Exterior",
       texto:
-        "Asesoramiento experto para instituciones, empresas y gobiernos en temas de geopolítica, diplomacia y análisis internacional."
+        "Asesoramiento experto para instituciones, empresas y gobiernos en temas de geopolítica, diplomacia y análisis internacional.",
+      link: "comExt"
     },
     {
       icono: "ph ph-chalkboard-teacher",
-      titulo: "Capacitaciones a Medida",
+      titulo: "Diplomacia Corporativa",
       texto:
-        "Programas formativos personalizados, adaptados a las necesidades de cada equipo o institución."
-    },
-    {
-      icono: "ph ph-file-text",
-      titulo: "Informes y Análisis",
-      texto:
-        "Elaboración de informes profesionales basados en datos y tendencias globales para apoyar decisiones clave."
+        "Programas formativos personalizados, adaptados a las necesidades de cada equipo o institución.",
+      link: "dipCorpo"
     },
     {
       icono: "ph ph-handshake",
-      titulo: "Negociación y Resolución de Conflictos",
+      titulo: "Relaciones internacionales",
       texto:
-        "Entrenamiento y acompañamiento en procesos de negociación multilateral y diplomática."
+        "Entrenamiento y acompañamiento en procesos de negociación multilateral y diplomática.",
+      link: "relIntern"
     },
     {
       icono: "ph ph-briefcase",
-      titulo: "Asesoría en Comercio Exterior",
+      titulo: "Analisis geopolitico",
       texto:
-        "Acompañamiento integral en estrategias de exportación, competitividad y acuerdos comerciales."
+        "Acompañamiento integral en estrategias de exportación, competitividad y acuerdos comerciales.",
+      link: "anGeo"
     },
     {
-      icono: "ph ph-megaphone",
-      titulo: "Diplomacia Pública",
+      icono: "ph ph-briefcase",
+      titulo: "Capacitaciones y Formacion Empresarial",
       texto:
-        "Diseño de estrategias de comunicación y posicionamiento internacional para instituciones."
+        "Accede a nuestras capacitaciones con nuestras membresias",
+      link: "capFormEmpre"
     }
   ];
 </script>
@@ -51,30 +53,65 @@
 </Section>
 
 <Section class="py-20 bg-whiteBGLite">
-  <div class="max-w-6xl mx-auto px-6 text-center">
-
-    <!-- GRID -->
-    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-      {#each servicios as s}
-        <div
-          class="group bg-white shadow-md hover:shadow-xl transition-all border border-gray-200 rounded-xl p-8 
-                 hover:-translate-y-1 cursor-default"
-        >
-          <!-- Icono -->
-          <div
-            class="w-16 h-16 mx-auto rounded-xl bg-secondary/10 flex items-center justify-center mb-6
-                   group-hover:bg-secondary/20 transition-all"
+  <div class="flex flex-col items-center">
+  <!--   
+   
+    <div class="dropdown dropdown-center mb-8">
+      <div tabindex="0" role="button" class="btn m-1 bg-secondary">Solicitar SERVICIO</div>
+      <ul tabindex="-1" class="dropdown-content menu bg-white rounded-box z-1 w-52 p-2 shadow-sm">
+        {#each servicios as s}
+          <li>
+            <a
+              class="flex items-center gap-3 px-4 py-2 rounded-lg 
+                    text-primary font-medium 
+                    hover:bg-secondary/10 hover:text-secondary 
+                    transition-all duration-200"
+            >
+              <i class={"ph ph-arrow-right text-secondary/70"}></i>
+              {s.titulo}
+            </a>
+          </li>
+        {/each}
+      </ul>
+    </div>
+-->
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <!-- GRID -->
+      <div class="flex flex-col gap-4">
+        {#each servicios as s}
+         <div
+            class="group bg-white shadow-md hover:shadow-xl transition-all border border-gray-200 rounded-xl p-8 
+                  hover:-translate-y-1 cursor-default flex items-start gap-6"
+            id={s.link}
           >
-            <i class={"text-secondary text-4xl " + s.icono}></i>
+            <!-- Icono -->
+            <div
+              class="w-16 h-16 shrink-0 rounded-xl bg-secondary/10 flex items-center justify-center
+                    group-hover:bg-secondary/20 transition-all"
+            >
+              <i class={"text-secondary text-4xl " + s.icono}></i>
+            </div>
+
+            <!-- Texto -->
+            <div class="flex flex-col text-left">
+              <h3 class="text-xl font-semibold text-primary">
+                {s.titulo}
+              </h3>
+
+              <p class="mt-2 text-gray-600 text-sm leading-relaxed text-justify">
+                {s.texto}
+              </p>
+            </div>
           </div>
 
-          <h3 class="text-xl font-semibold text-primary mb-3">{s.titulo}</h3>
-
-          <p class="text-gray-600 text-sm leading-relaxed">
-            {s.texto}
-          </p>
-        </div>
-      {/each}
+        {/each}
+      </div>
     </div>
   </div>
 </Section>
+
+<Capacitaciones/>
+
+<section id="consultores">
+  <Consultores/>
+</section>

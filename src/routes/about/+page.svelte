@@ -162,7 +162,7 @@
                     </div>
                 </div>
 
-                <div class="bg-greenLight rounded-2xl p-8 text-whiteColor">
+                <div class="bg-primary rounded-2xl p-8 text-whiteColor">
                     <h3 class="font-heading text-2xl font-semibold mb-6">Nuestro Impacto</h3>
                     <div class="grid grid-cols-2 gap-6">
                         {#each estadisticas as stat}
