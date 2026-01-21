@@ -1,83 +1,26 @@
 <script lang="ts">
+  import type { Consultor } from "$lib/domain/consultor";
   import CardConsultor from "$lib/components/cards/CardConsultor.svelte";
   import Section from "$lib/components/section/Section.svelte";
-  
-  let consultores = [
-    {
-      id: 1,
-      nombre: "Dr. Carlos Rodríguez",
-      especialidad: "Transformación Digital",
-      experiencia: "15 años",
-      descripcion: "Especialista en implementación de tecnologías emergentes y transformación organizacional.",
-      foto: "https://img.freepik.com/foto-gratis/profesor-aspecto-inteligente_53876-23045.jpg?semt=ais_hybrid&w=740&q=80",
-      contacto: {
-        telefono: "+5491112345678",
-        email: "c.rodriguez@apice.com"
-      },
-      disponible: true
-    },
-    {
-      id: 2,
-      nombre: "Lic. María González", 
-      especialidad: "Gestión Estratégica",
-      experiencia: "12 años",
-      descripcion: "Consultora en estrategia empresarial y planificación organizacional.",
-      foto: "https://img.freepik.com/foto-gratis/retrato-mujer-negocios-oficina_1398-6.jpg?semt=ais_hybrid&w=740&q=80",
-      contacto: {
-        telefono: "+549115554321", 
-        email: "m.gonzalez@apice.com"
-      },
-      disponible: true
-    },
-    {
-      id: 3,
-      nombre: "Lic. Julio Gomez", 
-      especialidad: "Gestión Estratégica",
-      experiencia: "9 años",
-      descripcion: "Consultora en estrategia empresarial y planificación organizacional.",
-      foto: "https://antoniovallsabogados.com/wp-content/uploads/2025/02/antoniovalls-toni-00.jpg",
-      contacto: {
-        telefono: "+549115554321", 
-        email: "m.gonzalez@apice.com"
-      },
-      disponible: true
-    },
-    {
-      id: 4,
-      nombre: "Lic. Monica Ramirez", 
-      especialidad: "Gestión Estratégica",
-      experiencia: "9 años",
-      descripcion: "Consultora en estrategia empresarial y planificación organizacional.",
-      foto: "https://thumbs.dreamstime.com/b/la-mujer-joven-est%C3%A1-hojeando-un-fichero-43322945.jpg",
-      contacto: {
-        telefono: "+549115554321", 
-        email: "m.gonzalez@apice.com"
-      },
-      disponible: false
-    }
+  import { createEventDispatcher } from 'svelte';
+  import { debounce } from "$lib/utils/DebounceSearch";
 
-  ];
+  const dispatch = createEventDispatcher();
 
-  
-  let terminoBusqueda = '';
-  let consultoresFiltrados = consultores;
-  
+  const { consultores = [] } = $props<{
+      consultores: Consultor[];
+  }>();
+
+
+  let terminoBusqueda = $state('');
+  let consultoresFiltrados = $derived(consultores);
+
   function filtrarConsultores() {
-    if (!terminoBusqueda.trim()) {
-      consultoresFiltrados = consultores;
-      return;
-    }
-    
-    consultoresFiltrados = consultores.filter(consultor =>
-      consultor.nombre.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
-      consultor.especialidad.toLowerCase().includes(terminoBusqueda.toLowerCase())
-    );
+    dispatch('buscaConsultores', terminoBusqueda)
   }
 
-  $: if (terminoBusqueda !== undefined) {
-    filtrarConsultores();
-  }
 </script>
+
 
 <div>
 
@@ -106,6 +49,7 @@
             type="text" 
             bind:value={terminoBusqueda}
             placeholder="Buscar por título, categoría o docente..."
+            oninput={filtrarConsultores}
             class="w-full px-6 py-4 bg-primary text-whiteColor rounded-xl focus:ring-2 focus:ring-secondary transition-all shadow-sm outline-none placeholder-white/40"
           />
           <div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/60">
@@ -131,9 +75,7 @@
       {#if consultoresFiltrados.length > 0}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {#each consultoresFiltrados as consultor}
-            <CardConsultor
-              {...consultor}
-            />
+            <CardConsultor consultor={consultor} />
           {/each}
         </div>
       {:else}
@@ -151,7 +93,7 @@
           </p>
           {#if terminoBusqueda}
             <button 
-              on:click={() => terminoBusqueda = ''}
+              onclick={() => terminoBusqueda = ''}
               class="mt-4 text-secondary hover:text-orange-600 font-semibold transition-colors"
             >
               Ver todos los consultores

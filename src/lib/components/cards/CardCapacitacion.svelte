@@ -1,5 +1,7 @@
 <script lang="ts">
-  export let cap;
+  import type { Capacitacion } from "$lib/domain/capacitacion";
+
+  export let cap: Capacitacion
   let showModal = false;
 
   const disponibleTexto = cap.disponible ? "Cupos disponibles" : "Cupos agotados";
@@ -12,9 +14,9 @@
   <!-- Imagen -->
   <figure class="w-full h-48 overflow-hidden bg-gray-100">
     <img
-      src={cap.imagen}
+      src={cap.imgURL}
       class="w-full h-full object-cover"
-      alt={cap.titulo}
+      alt={cap.capacitacion}
     />
   </figure>
 
@@ -23,10 +25,10 @@
       {cap.categoria}
     </div>
 
-    <h2 class="text-lg font-bold text-primary mt-2">{cap.titulo}</h2>
+    <h2 class="text-lg font-bold text-primary mt-2">{cap.capacitacion}</h2>
 
     <p class="text-gray-600 text-sm">
-      Dictado por <span class="font-semibold">{cap.docente}</span>
+      Dictado por <span class="font-semibold">{cap.consultor}</span>
     </p>
 
     <div class="flex flex-wrap gap-2 mt-3 text-xs">
@@ -71,7 +73,7 @@
   >
     <!-- Título -->
     <h3 class="text-2xl font-heading font-semibold text-primary mb-4">
-      {cap.titulo}
+      {cap.capacitacion}
     </h3>
 
     <!-- Descripción -->
