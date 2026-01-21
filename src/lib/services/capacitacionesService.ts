@@ -11,7 +11,7 @@ class CapacitacionesService{
 
 
     async getCapacitacionesByText(text: string){
-        const response = ()=> axios.get<CapacitacionJSON[]>(REST_SERVER_URL+'/capacitaciones/search?='+text)
+        const response = ()=> axios.get<CapacitacionJSON[]>(REST_SERVER_URL+'/capacitaciones/search?text='+text)
         return (await getAxiosData(response)).map(Capacitacion.fromJson)
     }
 }
