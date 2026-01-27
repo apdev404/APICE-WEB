@@ -5,6 +5,10 @@
     import ButtonLink from "$lib/components/buttons/ButtonLink.svelte";
     import CardArticulo from "$lib/components/cards/CardArticulo.svelte";
 
+    let {data} = $props()
+
+    const articulos = data.articulos
+
     const servicios = [
         {
         icono: "ph ph-globe-hemisphere-west",
@@ -50,29 +54,7 @@
         { number: "98%", label: "Clientes Satisfechos" }
     ];
 
-    const publicaciones = [
-        {
-            title: "Tendencias en Comercio Exterior 2024",
-            excerpt: "Análisis de las nuevas regulaciones y oportunidades en mercados emergentes.",
-            category: "Comercio Exterior",
-            date: "15 Nov 2024",
-            link: "/blog/tendencias-comercio-2024"
-        },
-        {
-            title: "Diplomacia Corporativa en América Latina",
-            excerpt: "Estrategias efectivas para la gestión de relaciones gobierno-empresa.",
-            category: "Diplomacia",
-            date: "8 Nov 2024",
-            link: "/blog/diplomacia-corporativa-latam"
-        },
-        {
-            title: "Impacto Geopolítico en Cadenas de Suministro",
-            excerpt: "Cómo adaptar su estrategia logística a los cambios globales.",
-            category: "Análisis",
-            date: "1 Nov 2024",
-            link: "/blog/impacto-geopolitico-cadenas-suministro"
-        }
-    ];
+    
 </script>
 
 <Galeria 
@@ -211,13 +193,9 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {#each publicaciones as publicacion}
+        {#each articulos as publicacion}
             <CardArticulo
-            categoria={publicacion.category}
-            fecha={publicacion.date}
-            titulo={publicacion.title}
-            descripcion={publicacion.excerpt}
-            link={publicacion.link}
+            articulo={publicacion}
             />
         {/each}
     </div>

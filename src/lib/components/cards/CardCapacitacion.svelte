@@ -2,10 +2,11 @@
   import type { Capacitacion } from "$lib/domain/capacitacion";
 
   export let cap: Capacitacion
+  let disponible = cap.cupos > 0
   let showModal = false;
 
-  const disponibleTexto = cap.disponible ? "Cupos disponibles" : "Cupos agotados";
-  const disponibleColor = cap.disponible ? "badge-success" : "badge-error";
+  const disponibleTexto = disponible ? "Cupos disponibles" : "Cupos agotados";
+  const disponibleColor = disponible ? "badge-success" : "badge-error";
 </script>
 
 <div
@@ -45,17 +46,17 @@
    <div
     class={
       "mt-4 w-full text-center font-semibold py-3 rounded-lg transition-all flex items-center justify-center gap-2 border " +
-      (cap.disponible
+      (disponible
         ? "border-primary text-primary hover:bg-primary hover:text-whiteColor cursor-pointer"
         : "border-gray-300 text-gray-400 bg-gray-100 opacity-60 cursor-not-allowed")
     }
   >
     <button
       class="w-full"
-      on:click={() => cap.disponible && (showModal = true)}
-      disabled={!cap.disponible}
+      on:click={() => disponible && (showModal = true)}
+      disabled={!disponible}
     >
-      {cap.disponible ? "Ver más" : "Sin cupo"}
+      {disponible ? "Ver más" : "Sin cupo"}
     </button>
   </div>
 
@@ -78,7 +79,7 @@
 
     <!-- Descripción -->
     <p class="text-primaryFontColor leading-relaxed mb-6 text-[15px]">
-      {cap.descripcion}
+      {cap.capacitacion}
     </p>
 
     <!-- Badges -->
@@ -92,7 +93,7 @@
 
     <!-- Docente -->
     <p class="text-sm text-gray-600 mb-2">
-      Docente: <span class="font-semibold">{cap.docente}</span>
+      Docente: <span class="font-semibold">{cap.consultor}</span>
     </p>
 
     <!-- Acciones -->

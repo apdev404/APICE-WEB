@@ -1,49 +1,28 @@
 <script lang="ts">
   import Section from "$lib/components/section/Section.svelte";
   import CardArticulo from "$lib/components/cards/CardArticulo.svelte";  
+  import { debounce } from "$lib/utils/DebounceSearch";
+  import { articulosService } from "$lib/services/articulosService.js";
+  import type { Articulo } from "$lib/domain/articulos.js";
+  import { showError } from "$lib/domain/errorHandler";
 
-  const articulos = [
-        {
-            title: "Tendencias en Comercio Exterior 2024",
-            excerpt: "Análisis de las nuevas regulaciones y oportunidades en mercados emergentes.",
-            category: "Comercio Exterior",
-            date: "15 Nov 2024",
-            link: "/blog/tendencias-comercio-2024"
-        },
-        {
-            title: "Diplomacia Corporativa en América Latina",
-            excerpt: "Estrategias efectivas para la gestión de relaciones gobierno-empresa.",
-            category: "Diplomacia",
-            date: "8 Nov 2024",
-            link: "/blog/diplomacia-corporativa-latam"
-        },
-        {
-            title: "Impacto Geopolítico en Cadenas de Suministro",
-            excerpt: "Cómo adaptar su estrategia logística a los cambios globales.",
-            category: "Análisis",
-            date: "1 Nov 2024",
-            link: "/blog/impacto-geopolitico-cadenas-suministro"
-        }
-    ];
+  let {data} = $props()
+let articulos = $state<Articulo[]>(data.articulos);
+let articulosFiltrados = $derived<Articulo[]>( articulos);
 
   let terminoBusqueda = '';
-  let articulosFiltrados = articulos;
 
-  function filtrarConsultores() {
-    if (!terminoBusqueda.trim()) {
-      articulosFiltrados = articulos;
-      return;
+
+  async function buscarArticulos(text: string){
+    try{
+      articulos = await articulosService.getArticulosByText(text)
+
+    }catch(error){
+      showError("Ha ocurrido un error al buscar los consultores: ",error)
     }
-    
-    articulosFiltrados = articulos.filter(articulo =>
-      articulo.title.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
-      articulo.category.toLowerCase().includes(terminoBusqueda.toLowerCase())
-    );
   }
 
-  $: if (terminoBusqueda !== undefined) {
-    filtrarConsultores();
-  }
+  const busquedaDebounceConsultores = debounce(buscarArticulos, 300)
 </script>
 
 <!-- El resto del código igual -->
@@ -72,6 +51,7 @@
           id="buscador"
           type="text" 
           bind:value={terminoBusqueda}
+          oninput={() => busquedaDebounceConsultores(terminoBusqueda)}
           placeholder="Buscar por título, categoría o autor..."
           class="w-full px-6 py-4 bg-primary text-whiteColor rounded-xl focus:ring-2 focus:ring-secondary transition-all shadow-sm outline-none placeholder-white/40"
         />
@@ -99,11 +79,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {#each articulosFiltrados as publicacion}
           <CardArticulo
-            categoria={publicacion.category}
-            fecha={publicacion.date}
-            titulo={publicacion.title}
-            descripcion={publicacion.excerpt}
-            link={publicacion.link}
+            articulo = {publicacion}
             />
         {/each}
       </div>
@@ -122,7 +98,7 @@
         </p>
         {#if terminoBusqueda}
           <button 
-            on:click={() => terminoBusqueda = ''}
+            onclick={() => terminoBusqueda = ''}
             class="mt-4 text-secondary hover:text-orange-600 font-semibold transition-colors"
           >
             Ver todos los articulos

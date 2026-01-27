@@ -1,4 +1,4 @@
-import { toBool, toDate, toDateString } from "$lib/utils/Convertidores"
+//import { toBool, toDate, toDateString } from "$lib/utils/Convertidores"
 
 export type CapacitacionJSON = {
   id?: string
