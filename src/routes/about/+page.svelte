@@ -49,26 +49,9 @@
         }
     ];
 
-    const equipo = [
-        {
-            name: "Dr. Alejandro Mendoza",
-            position: "Socio Fundador",
-            description: "Ex-embajador en ONU, PhD en Relaciones Internacionales, 20+ años en diplomacia.",
-            badges: ["Harvard University", "Ex-Embajador"]
-        },
-        {
-            name: "Dra. María Fernández",
-            position: "Directora de Comercio Exterior", 
-            description: "Especialista en negociaciones comerciales y análisis de mercados emergentes.",
-            badges: ["London School of Economics", "OMC Experta"]
-        },
-        {
-            name: "Carlos Rodríguez",
-            position: "Director de Estrategia Geopolítica",
-            description: "Analista senior de riesgo político con experiencia en inteligencia de mercados.",
-            badges: ["Georgetown University", "Análisis de Riesgo"]
-        }
-    ];
+    let {data} = $props()
+
+    let equipo = data.directivos
 
     const estadisticas = [
         { number: "50+", label: "Proyectos Internacionales" },
@@ -199,15 +182,13 @@
                             </svg>
                         </div>
                         <div class="p-6">
-                            <h3 class="font-heading text-xl font-semibold text-primary mb-1">{miembro.name}</h3>
-                            <p class="text-secondary font-medium mb-3">{miembro.position}</p>
+                            <h3 class="font-heading text-xl font-semibold text-primary mb-1">{miembro.nombre}</h3>
+                            <p class="text-secondary font-medium mb-3">{miembro.especialidad}</p>
                             <p class="text-primaryFontColor text-sm mb-4 font-alternative">
-                                {miembro.description}
+                                {miembro.descripcion}
                             </p>
                             <div class="flex flex-wrap gap-2">
-                                {#each miembro.badges as badge}
-                                    <span class="bg-greenLight/10 text-greenLight text-xs px-3 py-1 rounded-full">{badge}</span>
-                                {/each}
+                                    <span class="bg-greenLight/10 text-greenLight text-xs px-3 py-1 rounded-full">{miembro.titulo_academico}</span>
                             </div>
                         </div>
                     </div>

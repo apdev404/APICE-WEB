@@ -9,6 +9,12 @@ class ConsultorService{
         return (await getAxiosData(response)).map(Consultor.fromJson)
     }
 
+    async getDirectivos(){
+        const response = () => axios.get<ConsultorJSON[]>(REST_SERVER_URL + '/consultores/directivos')
+        return (await getAxiosData(response)).map(Consultor.fromJson)
+    }
+
+
 
     async getConsultoresByText(text: string){
         const response = ()=> axios.get<ConsultorJSON[]>(REST_SERVER_URL+'/consultores/search?text='+text)

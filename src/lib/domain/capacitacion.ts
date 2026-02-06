@@ -63,9 +63,74 @@ export class Capacitacion {
         especialidad_consultor: this.especialidad_consultor,
         modalidad: this.modalidad
     };
+    } 
+}
+
+
+export type CapacitacionDetalleJSON = {
+  id?: string
+  capacitacion: string
+  descripcion: string
+  imgURL: string
+  duracion: string
+  cupos: number
+  categoria: string
+  consultor: string
+  especialidad_consultor: string
+  modalidad: string  
+  form_inscripcion: string
+}
+
+
+
+
+export class CapacitacionDetalle {
+  errors: ValidationMessage[] = []
+
+  constructor(
+    public id?: string,
+    public capacitacion: string = '',
+    public descripcion: string = '',
+    public imgURL: string = '',
+    public duracion: string = '',
+    public cupos: number = 0,
+    public categoria: string = '',
+    public consultor: string = '',
+    public especialidad_consultor: string = '',
+    public modalidad: string = '',
+    public form_inscripcion: string = '',
+  ) {}
+
+  static fromJson(json: CapacitacionDetalleJSON): CapacitacionDetalle {
+    return new CapacitacionDetalle(
+        json.id,
+        json.capacitacion,
+        json.descripcion,
+        json.imgURL,
+        json.duracion,
+        json.cupos,
+        json.categoria,
+        json.consultor,
+        json.especialidad_consultor,
+        json.modalidad,
+        json.form_inscripcion
+    );
     }
 
 
-
-  
+    toJSON(): CapacitacionDetalleJSON {
+    return {
+        id: this.id,
+        capacitacion: this.capacitacion,
+        descripcion: this.descripcion,
+        imgURL: this.imgURL,
+        duracion: this.duracion,
+        cupos: this.cupos,
+        categoria: this.categoria,
+        consultor: this.consultor,
+        especialidad_consultor: this.especialidad_consultor,
+        modalidad: this.modalidad,
+        form_inscripcion: this.modalidad,      
+    };
+    } 
 }

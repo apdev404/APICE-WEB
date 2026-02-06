@@ -1,13 +1,31 @@
 <script lang="ts">
-  import type { Capacitacion } from "$lib/domain/capacitacion";
+  import type { Capacitacion, CapacitacionDetalle } from "$lib/domain/capacitacion";
+  import { capacitacionesService } from "$lib/services/capacitacionesService";
+
 
   export let cap: Capacitacion
+  let capDetalle: CapacitacionDetalle | null = null
+
   let disponible = cap.cupos > 0
   let showModal = false;
+
+  $: if (showModal) {
+    cargarDetalle()
+  }
+
+  async function cargarDetalle() {
+    try {
+      capDetalle = await capacitacionesService.getCapacitacionessById(cap.id!);
+    } catch (error) {
+      console.error('Error cargando detalle:', error);
+    }
+  }
 
   const disponibleTexto = disponible ? "Cupos disponibles" : "Cupos agotados";
   const disponibleColor = disponible ? "badge-success" : "badge-error";
 </script>
+
+
 
 <div
   class="card bg-white shadow-md hover:shadow-xl transition-all rounded-xl overflow-hidden border border-gray-100"
@@ -53,7 +71,7 @@
   >
     <button
       class="w-full"
-      on:click={() => disponible && (showModal = true)}
+      on:click={() => disponible && (showModal = true) }
       disabled={!disponible}
     >
       {disponible ? "Ver más" : "Sin cupo"}
@@ -65,7 +83,7 @@
 
 
 <!-- 🌟 MODAL ESTILIZADO -->
-{#if showModal}
+{#if showModal && capDetalle}
 <div 
   class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 animate-fadeIn"
 >
@@ -74,26 +92,26 @@
   >
     <!-- Título -->
     <h3 class="text-2xl font-heading font-semibold text-primary mb-4">
-      {cap.capacitacion}
+      {capDetalle.capacitacion}
     </h3>
 
     <!-- Descripción -->
     <p class="text-primaryFontColor leading-relaxed mb-6 text-[15px]">
-      {cap.capacitacion}
+      {capDetalle.descripcion}
     </p>
 
     <!-- Badges -->
     <div class="flex flex-wrap gap-3 mb-6">
-      <span class="badge badge-outline text-sm px-3 py-2">{cap.duracion}</span>
-      <span class="badge badge-outline text-sm px-3 py-2">{cap.modalidad}</span>
+      <span class="badge badge-outline text-sm px-3 py-2">{capDetalle.duracion}</span>
+      <span class="badge badge-outline text-sm px-3 py-2">{capDetalle.modalidad}</span>
       <span class="badge bg-secondary/20 text-secondary border-none text-sm px-3 py-2">
-        {cap.categoria}
+        {capDetalle.categoria}
       </span>
     </div>
 
     <!-- Docente -->
     <p class="text-sm text-gray-600 mb-2">
-      Docente: <span class="font-semibold">{cap.consultor}</span>
+      Docente: <span class="font-semibold">{capDetalle.consultor}</span>
     </p>
 
     <!-- Acciones -->

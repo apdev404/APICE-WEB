@@ -27,6 +27,7 @@
     <a
       href={articulo.pdf_url}
       class="text-secondary hover:text-greenAP font-medium text-sm inline-flex items-center"
+      target="_blank"
     >
       Leer análisis
       <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -4,19 +4,48 @@
     import ButtonLink from "../buttons/ButtonLink.svelte";  
     import { createEventDispatcher } from "svelte";
     import { Capacitacion } from "$lib/domain/capacitacion";
-    
-    const dispatch = createEventDispatcher();
+    import Filters from "../filters/Filters.svelte";
+    import {type CapacitacionSearchParams } from "$lib/domain/search/CapaSearchParams";
+    import { categoriasOptions } from "$lib/domain/categorias";
+    import { Modalidades } from "$lib/domain/auxiliares";
 
+    const dispatch = createEventDispatcher();
+    
     const { capacitaciones = [] } = $props<{
         capacitaciones: Capacitacion[];
     }>();
 
 
-    let terminoBusqueda = $state('');
     let capacitacionesFiltradas = $derived(capacitaciones);
+    
+    let filtros: CapacitacionSearchParams = $state({
+        text: '',
+        categoriaId: '',
+        modalidad: ''
+    });
+
+    const opcionesFiltros = {
+        categoriaId: categoriasOptions,
+        modalidad: [
+            { value: '', label: 'Todas las modalidades' },
+            { value: Modalidades.Virtual , label: 'Virtual' },
+            { value: Modalidades.Presencial , label: 'Presencial' },
+            { value: Modalidades.Hibrido , label: 'Hibrido' }
+        ]
+    };
 
     function filtrarCapacitaciones() {
-      dispatch('buscaCapacitaciones', terminoBusqueda)
+      let busquedaConFiltro = 'text='+filtros.text+'&categoriaId='+filtros.categoriaId+'&modalidad='+filtros.modalidad
+      dispatch('buscaCapacitaciones', busquedaConFiltro)
+    }
+
+    function limpiarFiltros(){
+      filtros = {
+        text: '',
+        categoriaId: '',
+        modalidad: ''
+      }
+      dispatch('buscaCapacitaciones', '')
     }
 </script>
 
@@ -46,7 +75,7 @@
           <input 
             id="buscador"
             type="text" 
-            bind:value={terminoBusqueda}
+            bind:value={filtros.text}
             oninput={filtrarCapacitaciones}
             placeholder="Buscar por título, categoría o docente..."
             class="w-full px-6 py-4 bg-primary text-whiteColor rounded-xl focus:ring-2 focus:ring-secondary transition-all shadow-sm outline-none placeholder-white/40"
@@ -56,13 +85,57 @@
             <i class="ph-thin ph-magnifying-glass text-2xl"></i>
           </div>
         </div>
+
+
+
+      <!-- FILTROS-->
+    <div class="flex flex-col md:flex-row gap-4 justify-center">
+
+  <Filters 
+    filtros={opcionesFiltros.categoriaId}
+    titleFilter="Tema"
+    on:change={(e) => filtros.categoriaId = e.detail}
+  />
+
+  <Filters 
+    filtros={opcionesFiltros.modalidad}
+    titleFilter="Modalidad"
+    on:change={(e) => filtros.modalidad = e.detail}
+  />
+
+  <!-- Wrapper para alinear -->
+  <div class="flex items-end gap-2 items-center">
+    
+    <ButtonLink 
+      tipo="primary"
+      class="h-10 px-3 flex items-center justify-center"
+      onClick={filtrarCapacitaciones}
+    >
+      <i class="ph ph-magnifying-glass"></i>
+    </ButtonLink>
+
+    <ButtonLink 
+      tipo="inverse"
+      class="h-10 px-3 flex items-center justify-center"
+      onClick={limpiarFiltros}
+    >
+      <i class="ph ph-trash"></i>
+    </ButtonLink>
+
+  </div>
+
+</div>
+
+
+
+
       </div>
   
       <!-- CONTADOR -->
       <p class="text-center text-gray-600 mb-10">
         {capacitacionesFiltradas.length}
         {capacitacionesFiltradas.length === 1 ? 'resultado encontrado' : 'resultados encontrados'}
-        {terminoBusqueda && ` para "${terminoBusqueda}"`}
+        {filtros.text && ` para "${filtros.text}"`}
       </p>
   
       <!-- GRID DE CARDS -->
