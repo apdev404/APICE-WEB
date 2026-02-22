@@ -30,7 +30,7 @@ let articulosFiltrados = $derived<Articulo[]>( articulos);
 <section class="bg-primary text-whiteColor py-20">
   <div class="max-w-6xl mx-auto px-6 text-center">
     <h1 class="text-4xl md:text-5xl font-heading font-bold mb-6">
-      ARTICULOS
+      INFORMES
     </h1>
     <p class="text-xl text-whiteColor/80 max-w-3xl mx-auto leading-relaxed">
       Enterate de las ultimas noticias diplomaticas alrededor del mundo

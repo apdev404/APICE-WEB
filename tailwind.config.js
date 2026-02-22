@@ -11,6 +11,7 @@ export default {
 				'primaryFontColor': '#030b0fff',
 				'greenAP': '#043939',
 				'greenLight': '#034450',
+				'red': '#b81111',
 			},
 			fontFamily: {
 				'sans': ['Inter', 'system-ui', 'sans-serif'],

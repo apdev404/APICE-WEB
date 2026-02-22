@@ -16,7 +16,7 @@
           >
         </div>
         <p class="opacity-90 font-sans text-sm md:text-base">
-          Descripción de tu empresa o proyecto con tu identidad.
+          Posicionando a nuestros clientes a nivel local y los insertamos internacionalmente en los mercados y sociedades de Asia, América Latina, Europa y el resto del mundo.
         </p>
       </div>
       

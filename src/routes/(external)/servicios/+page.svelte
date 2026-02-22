@@ -1,17 +1,14 @@
 <script lang="ts">
   import Section from "$lib/components/section/Section.svelte";
-  import Capacitaciones from "$lib/components/capacitaciones/Capacitaciones.svelte";
   import Consultores from "$lib/components/consultores/Consultores.svelte";
   import { consultoresService } from "$lib/services/consultoresService.js";
   import { showError } from "$lib/domain/errorHandler.js";
   import { debounce } from "$lib/utils/DebounceSearch.js";
   import { Consultor } from "$lib/domain/consultor.js";
-  import type { Capacitacion } from "$lib/domain/capacitacion.js";
-  import { capacitacionesService } from "$lib/services/capacitacionesService.js";
+  import ButtonLink from "$lib/components/buttons/ButtonLink.svelte";
 
   const { data } = $props();
   let consultores: Consultor[] = $state(data.consultores);
-  let capacitaciones: Capacitacion[] = $state(data.capacitaciones);
   
   async function buscarConsultores(text: string){
     try{
@@ -24,17 +21,6 @@
 
   const busquedaDebounceConsultores = debounce(buscarConsultores, 300)
 
-
-  async function buscarCapacitaciones(text: string){
-    try{
-      capacitaciones = await capacitacionesService.getCapacitacionesByText(text)
-      console.log(capacitaciones)
-    }catch(error){
-      showError("Ha ocurrido un error al buscar las capacitaciones: ",error)
-    }
-  }
-
-  const busquedaDebounceCapacitaciones = debounce(buscarCapacitaciones, 300)
 
   const servicios = [
     {
@@ -142,9 +128,36 @@
   </div>
 </Section>
 
-<Capacitaciones capacitaciones= {capacitaciones}
-  on:buscaCapacitaciones={(e)  => busquedaDebounceCapacitaciones(e.detail)}
-/>
+<section class="bg-primary text-whiteColor py-20">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h1 class="text-4xl md:text-5xl font-heading font-bold mb-6">
+        CAPACITACIONES
+      </h1>
+      <p class="text-xl text-whiteColor/80 max-w-3xl mx-auto leading-relaxed">
+        Programas de formación dictados por expertos en relaciones internacionales, transformación digital y gestión estratégica.
+      </p>
+    </div>
+</section>
+
+<Section class="py-12 bg-whiteBGLite">
+  <div class="flex flex-col items-center justify-center text-center gap-6 ">
+        <ButtonLink tipo="primary" href="/capacitaciones" class="mt-2 h-20 text-2xl content-center">
+          ACCEDER A CAPACITACIONES
+        </ButtonLink>
+    
+        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-primary max-w-2xl">
+          Accedé a las capacitaciones con nuestras membresías
+        </h1>
+
+        <p class="text-gray-500 max-w-xl">
+          Elegí el plan que mejor se adapta a tu objetivo y empezá hoy mismo a potenciar tu estrategia internacional.
+        </p>
+
+        <ButtonLink tipo="secondary" href="/membresias" class="mt-2">
+          Ver Membresías
+        </ButtonLink>
+  </div>
+</Section>
 
 <section id="consultores">
   <Consultores consultores= {consultores}
