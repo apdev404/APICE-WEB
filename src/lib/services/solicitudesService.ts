@@ -10,9 +10,17 @@ class SolicitudService{
     }
 
     async confirmarSolicitud(solicitudId: string){
-        return getAxiosData(() =>
-            axios.post(REST_SERVER_URL + '/admin/solicitudes/:'+solicitudId+'/confirmar')
-        )
+        const token = localStorage.getItem("token")
+
+        return axios.post(
+        `${REST_SERVER_URL}/admin/solicitudes/${solicitudId}/confirmar`,
+        {},
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    )
     }
 }
 
