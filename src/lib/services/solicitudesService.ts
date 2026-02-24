@@ -9,7 +9,11 @@ class SolicitudService{
         return (await getAxiosData(response)).map(Solicitud.fromJson)
     }
 
-  
+    async confirmarSolicitud(solicitudId: string){
+        return getAxiosData(() =>
+            axios.post(REST_SERVER_URL + '/admin/solicitudes/:'+solicitudId+'/confirmar')
+        )
+    }
 }
 
 

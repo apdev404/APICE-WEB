@@ -1,6 +1,28 @@
 <script lang="ts">
     import Section from "$lib/components/section/Section.svelte";
     import ButtonLink from "$lib/components/buttons/ButtonLink.svelte";
+    import { adminService } from "$lib/services/adminsService";
+    import { goto } from "$app/navigation";
+  import { showError } from "$lib/domain/errorHandler";
+
+    let usuario = $state('')
+    let password = $state('')
+
+    async function login() {
+        try {
+            const data = await adminService.login(usuario, password)
+
+            console.log(data)
+
+            // si viene token:
+            localStorage.setItem("token", data.token)
+
+            goto('/internal/admin-apice-panel/panel')
+
+        } catch (error) {
+            showError("Error de login", error)
+        }
+    }
 </script>
 
 <Section class="bg-whiteColor h-screen flex flex-col justify-center items-center ">
@@ -22,25 +44,28 @@
         <form 
             class="text-whiteColor bg-base-200 border-base-300 
                    rounded-box w-full max-w-2xl border p-8 shadow-xl space-y-4"
+            on:submit|preventDefault={login}
         >
             <fieldset class="space-y-2">
-                <label class="label">Email</label>
+                <label class="label">Usuario</label>
                 <input 
                     type="email" 
                     class="input validator w-full" 
-                    placeholder="Email" 
+                    placeholder="Usuario" 
                     required 
+                    bind:value={usuario}
                 />
                 <p class="validator-hint hidden">Required</p>
             </fieldset>
 
             <fieldset class="space-y-2">
-                <label class="label">Password</label>
+                <label class="label">Contraseña</label>
                 <input 
                     type="password" 
                     class="input validator w-full" 
-                    placeholder="Password" 
+                    placeholder="Contraseña" 
                     required 
+                    bind:value={password}
                 />
                 <span class="validator-hint hidden">Required</span>
             </fieldset>
@@ -50,6 +75,7 @@
                     class="bg-secondary hover:bg-orange-600 
                            text-whiteColor btn"
                     type="submit"
+                    
                 >
                     Login
                 </button>

@@ -1,9 +1,18 @@
 <script lang="ts">
     import { Solicitud } from '$lib/domain/solicitud.js';
+    import { solicitudService } from '$lib/services/solicitudesService.js';
+    import { showError } from '$lib/domain/errorHandler.js';
 
-   const { data } = $props();
+    const { data } = $props();
     let solicitudes: Solicitud[] = $state(data.solicitudes);
-  
+    
+    async function confirmarSolicitud(id: string) {
+        try {
+            await solicitudService.confirmarSolicitud(id)
+        } catch (error) {
+            showError("Error al confirmar solicitud", error)
+        }
+    }
 </script>
 
     
@@ -12,7 +21,7 @@
         <img 
             src="/images/logos/LOGO-POSITIVO-APICE.png" 
             alt="APICE"
-            class="h-40 md:h-56 lg:h-20 w-auto mx-auto 
+            class="h-40 md:h-56 lg:h-32 w-auto mx-auto 
                     drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]
                     drop-shadow-[0_0_60px_rgba(0,0,0,0.6)]
                     brightness-110 contrast-110"
@@ -85,7 +94,9 @@
                 <td class="px-4 py-3 border border-greenLight text-center space-x-2">
 
                 {#if solicitud.estado === 'pendiente'}
-                    <button class="px-3 py-1 text-xs rounded-lg bg-secondary text-white hover:opacity-90 transition">
+                    <button class="px-3 py-1 text-xs rounded-lg bg-secondary text-white hover:opacity-90 transition"
+                        onclick={() => confirmarSolicitud(solicitud.id)}
+                    >
                     Confirmar
                     </button>
                 {/if}
