@@ -1,9 +1,10 @@
 <script lang="ts">
   import type { Solicitud } from "$lib/domain/solicitud";
 
-  const { solicitudes, onConfirmar } = $props<{
+  const { solicitudes, onConfirmar, onRechazar } = $props<{
     solicitudes: Solicitud[];
     onConfirmar: (id: string, nombre: string) => void;
+    onRechazar: (id: string, nombre: string) => void;
   }>();
 </script>
 
@@ -28,7 +29,7 @@
           <td class="px-4 py-3 border border-greenLight font-medium">{solicitud.nombre}</td>
           <td class="px-4 py-3 border border-greenLight">{solicitud.email}</td>
           <td class="px-4 py-3 border border-greenLight">{solicitud.membresia}</td>
-          <td class="px-4 py-3 border border-greenLight">{solicitud.fecha}</td>
+          <td class="px-4 py-3 border border-greenLight">{solicitud.fecha_solicitud.toLocaleString()}</td>
 
           <td class="px-4 py-3 border border-greenLight text-center">
             {#if solicitud.estado === 'pendiente'}
@@ -53,6 +54,12 @@
                 on:click={() => onConfirmar(solicitud.id, solicitud.nombre)}
               >
                 Confirmar
+              </button>
+              <button
+                class="px-3 py-1 text-xs rounded-lg bg-red text-white hover:opacity-90 transition"
+                on:click={() => onRechazar(solicitud.id, solicitud.nombre)}
+              >
+                Rechazar
               </button>
             {/if}
           </td>

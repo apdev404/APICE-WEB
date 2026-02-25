@@ -8,7 +8,7 @@ export type SolicitudJSON = {
   id?: number
   nombre: string
   email: string
-  membresia_id: string   // o number si tu FK es INT
+  membresia: string   // o number si tu FK es INT
   estado: EstadoSolicitud
   fecha_solicitud: string
   licencia_id?: string | null
@@ -27,7 +27,7 @@ export class Solicitud {
     public id?: number,
     public nombre: string = '',
     public email: string = '',
-    public membresia_id: string = '',
+    public membresia: string = '',
     public estado: EstadoSolicitud = 'pendiente',
     public fecha_solicitud: Date = new Date(),
     public licencia_id?: string | null,
@@ -38,7 +38,7 @@ export class Solicitud {
       json.id,
       json.nombre,
       json.email,
-      json.membresia_id,
+      json.membresia,
       json.estado,
       new Date(json.fecha_solicitud),
       json.licencia_id ?? null
@@ -50,7 +50,7 @@ export class Solicitud {
       id: this.id,
       nombre: this.nombre,
       email: this.email,
-      membresia_id: this.membresia_id,
+      membresia: this.membresia,
       estado: this.estado,
       fecha_solicitud: this.fecha_solicitud.toISOString(),
       licencia_id: this.licencia_id ?? null
@@ -68,8 +68,8 @@ export class Solicitud {
       this.errors.push(new ValidationMessage('email', 'El email es obligatorio'))
     }
 
-    if (!this.membresia_id) {
-      this.errors.push(new ValidationMessage('membresia_id', 'Debe seleccionar una membresía'))
+    if (!this.membresia) {
+      this.errors.push(new ValidationMessage('membresia', 'Debe seleccionar una membresía'))
     }
 
     return this.errors.length === 0

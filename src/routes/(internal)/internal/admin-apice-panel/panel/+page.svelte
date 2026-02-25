@@ -3,10 +3,14 @@
     import { solicitudService } from '$lib/services/solicitudesService.js';
     import { showError, showSuccess } from '$lib/domain/errorHandler.js';
     import Solicitudes from '$lib/components/solicitudes/Solicitudes.svelte';
-    import Membresias from '$lib/components/membresias/Membresias.svelte';
+    import Licencias from '$lib/components/licencias/Licencias.svelte';
+    import type { Licencia } from '$lib/domain/licencia.js';
+    import { licenciasService } from '$lib/services/licenciasService.js';
+    import StatsMembers from '$lib/components/estadisticasMembresias/StatsMembers.svelte';
 
     const { data } = $props();
     let solicitudes: Solicitud[] = $state(data.solicitudes);
+    let licencias: Licencia[] = $state(data.licencias);
 
     let activeTab = $state<'solicitudes' | 'membresias' | 'estadisticas'>('solicitudes');
 
@@ -14,9 +18,21 @@
         try {
             await solicitudService.confirmarSolicitud(id);
             solicitudes = await solicitudService.getSolicitudes();
+            licencias = await licenciasService.getLicencias();
             showSuccess("Solicitud confirmada para: " + nombre);
         } catch (error) {
             showError("Error al confirmar solicitud", error);
+        }
+    }
+
+    async function rechazarSolicitud(id: string, nombre: string) {
+        try {
+            await solicitudService.rechazarSolicitud(id);
+            solicitudes = await solicitudService.getSolicitudes();
+            licencias = await licenciasService.getLicencias();
+            showSuccess("Solicitud rechazada para: " + nombre);
+        } catch (error) {
+            showError("Error al rechazar solicitud", error);
         }
     }
 </script>
@@ -83,22 +99,23 @@
         <Solicitudes 
             solicitudes={solicitudes}
             onConfirmar={confirmarSolicitud}
+            onRechazar={rechazarSolicitud}
         />
     {/if}
 
     <!-- MEMBRESIAS -->
     {#if activeTab === 'membresias'}
-        <Membresias 
-            solicitudes={solicitudes}
-            onConfirmar={confirmarSolicitud}
+        <Licencias 
+            licencias={licencias}
         />
     {/if}
 
     <!-- ESTADISTICAS -->
     {#if activeTab === 'estadisticas'}
-        <div class="text-center py-24 text-xl font-semibold text-primary">
-            Aquí irán las estadísticas 📊
-        </div>
+        <StatsMembers 
+            solicitudes={solicitudes}
+            licencias={licencias}
+        />
     {/if}
 
 </section>

@@ -22,6 +22,20 @@ class SolicitudService{
         }
     )
     }
+
+    async rechazarSolicitud(solicitudId: string){
+        const token = localStorage.getItem("token")
+
+        return axios.post(
+        `${REST_SERVER_URL}/admin/solicitudes/${solicitudId}/rechazar`,
+        {},
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    )
+    }
 }
 
 

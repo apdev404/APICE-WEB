@@ -13,6 +13,8 @@
     cargarDetalle()
   }
 
+  $: console.log("IMG URL:", cap.imgURL)
+
   async function cargarDetalle() {
     try {
       capDetalle = await capacitacionesService.getCapacitacionessById(cap.id!);

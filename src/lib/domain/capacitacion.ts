@@ -6,10 +6,12 @@ export type CapacitacionJSON = {
   imgURL: string
   duracion: string
   cupos: number
+  nivel_minimo: number
   categoria: string
   consultor: string
   especialidad_consultor: string
   modalidad: string  
+
 }
 
 
@@ -30,6 +32,7 @@ export class Capacitacion {
     public imgURL: string = '',
     public duracion: string = '',
     public cupos: number = 0,
+    public nivel_minimo: number = 0,
     public categoria: string = '',
     public consultor: string = '',
     public especialidad_consultor: string = '',
@@ -40,12 +43,13 @@ export class Capacitacion {
     return new Capacitacion(
         json.id,
         json.capacitacion,
+        json.imgURL,
+        json.duracion,
+        json.cupos,
+        json.nivel_minimo,
         json.categoria,
         json.consultor,
-        json.cupos,
-        json.duracion,
         json.especialidad_consultor,
-        json.imgURL,
         json.modalidad
     );
     }
@@ -61,7 +65,8 @@ export class Capacitacion {
         categoria: this.categoria,
         consultor: this.consultor,
         especialidad_consultor: this.especialidad_consultor,
-        modalidad: this.modalidad
+        modalidad: this.modalidad,
+        nivel_minimo: this.nivel_minimo
     };
     } 
 }
@@ -79,6 +84,7 @@ export type CapacitacionDetalleJSON = {
   especialidad_consultor: string
   modalidad: string  
   form_inscripcion: string
+  nivel_minimo: number
 }
 
 
@@ -99,6 +105,7 @@ export class CapacitacionDetalle {
     public especialidad_consultor: string = '',
     public modalidad: string = '',
     public form_inscripcion: string = '',
+    public nivel_minimo: number = 0
   ) {}
 
   static fromJson(json: CapacitacionDetalleJSON): CapacitacionDetalle {
@@ -113,7 +120,8 @@ export class CapacitacionDetalle {
         json.consultor,
         json.especialidad_consultor,
         json.modalidad,
-        json.form_inscripcion
+        json.form_inscripcion,
+        json.nivel_minimo
     );
     }
 
@@ -131,6 +139,7 @@ export class CapacitacionDetalle {
         especialidad_consultor: this.especialidad_consultor,
         modalidad: this.modalidad,
         form_inscripcion: this.modalidad,      
+        nivel_minimo: this.nivel_minimo
     };
     } 
 }

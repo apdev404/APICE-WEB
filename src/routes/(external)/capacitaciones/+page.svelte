@@ -8,23 +8,43 @@
   import { capacitacionesService } from "$lib/services/capacitacionesService.js";
 
   const { data } = $props();
-  let capacitaciones: Capacitacion[] = $state(data.capacitaciones);
- 
-  async function buscarCapacitaciones(text: string){
+  let capacitacionesLibres: Capacitacion[] = $state(
+    data.capacitaciones.filter(c => c.nivel_minimo === 0)
+  );
+
+  let capacitacionesMiembros: Capacitacion[] = $state(
+    data.capacitaciones.filter(c => c.nivel_minimo > 0)
+  ); 
+
+
+  async function buscarCapacitaciones(text: string, tipo: 'libres' | 'miembros'){
     try{
-      capacitaciones = await capacitacionesService.getCapacitacionesByText(text)
-      console.log(capacitaciones)
+      const resultado = await capacitacionesService.getCapacitacionesByText(text);
+
+      if(tipo === 'libres'){
+        capacitacionesLibres = resultado.filter(c => c.nivel_minimo == 0);
+      }
+
+      if(tipo === 'miembros'){
+        capacitacionesMiembros = resultado.filter(c => c.nivel_minimo > 0);
+      }
+
     }catch(error){
       showError("Ha ocurrido un error al buscar las capacitaciones: ",error)
     }
   }
-
-  const busquedaDebounceCapacitaciones = debounce(buscarCapacitaciones, 300)
-
+    
+  const busquedaDebounceCapacitaciones = debounce(
+    (text: string, tipo: 'libres' | 'miembros') =>
+      buscarCapacitaciones(text, tipo),
+    300
+  );
 </script>
 
-
-<Capacitaciones capacitaciones= {capacitaciones}
-  on:buscaCapacitaciones={(e)  => busquedaDebounceCapacitaciones(e.detail)}
+<Capacitaciones
+  capacitacionesLibres={capacitacionesLibres}
+  capacitacionesMiembros={capacitacionesMiembros}
+  on:buscaCapacitaciones={(e) =>
+    busquedaDebounceCapacitaciones(e.detail.text, e.detail.tipo)
+  }
 />
-
