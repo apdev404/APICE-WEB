@@ -33,7 +33,7 @@
       showError("Ha ocurrido un error al buscar las capacitaciones: ",error)
     }
   }
-    
+  
   const busquedaDebounceCapacitaciones = debounce(
     (text: string, tipo: 'libres' | 'miembros') =>
       buscarCapacitaciones(text, tipo),

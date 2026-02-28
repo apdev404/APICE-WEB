@@ -1,11 +1,23 @@
-<script>
+<script lang="ts">
   import Section from "$lib/components/section/Section.svelte";
   import CardMembresia from "$lib/components/cards/CardMembresia.svelte";
+  import type { Membresia } from "$lib/domain/membresias.js";
 
-  const membresias = [
-    {
-      nombre: "Esencial",
-      precio: "$0",
+  const { data } = $props();
+
+  const membresiasBackend = data.membresias
+  
+  type MembresiaVisual = {
+    tag: string;
+    icono: string;
+    publico: string;
+    beneficios: { texto: string; activo: boolean }[];
+    bgColor: string;
+    destacado?: boolean;
+  };
+
+  const membresiasBase: Record<number, MembresiaVisual> = {
+    1: {
       tag: "Ideal para empezar",
       icono: "ph ph-star",
       publico: "Personas o pymes que recién empiezan en comercio exterior.",
@@ -17,9 +29,7 @@
       ],
       bgColor: "greenLight"
     },
-    {
-      nombre: "Profesional",
-      precio: "$49",
+    2: {
       tag: "Más elegido",
       destacado: true,
       icono: "ph ph-medal",
@@ -32,9 +42,7 @@
       ],
       bgColor: "greenAP"
     },
-    {
-      nombre: "Corporativo",
-      precio: "$99",
+    3: {
       tag: "Nivel premium",
       icono: "ph ph-crown",
       publico: "Empresas con operaciones complejas o de gran escala.",
@@ -45,8 +53,23 @@
         { texto: "Soporte personalizado", activo: true },
       ],
       bgColor: "secondary"
-    },
-  ];
+    }
+  };
+
+  function mapMembresiasBackend(membresiasBackend: Membresia[]) {
+    return membresiasBackend.map(m => {
+      const base = membresiasBase[m.nivel];
+
+      return {
+        nombre: m.nombre,
+        precio: `$${Number(m.precio)}`,
+        ...base
+      };
+    });
+  }
+  
+  let membresias = mapMembresiasBackend(membresiasBackend);
+
 </script>
 
 
@@ -78,7 +101,7 @@
         </div>
     <div class="text-center max-w-3xl mx-auto">
         <h2 class="text-3xl lg:text-4xl font-heading font-bold mb-6">
-            Sobre las membresias
+            Sobre las Membresias
         </h2>
         <p class="text-xl text-primary/80 mb-8 font-alternative">
             Las capacitaciones de Ápice complementan nuestros planes de acompañamiento, fortaleciendo las capacidades internas de cada organización

@@ -16,6 +16,7 @@
 
             // si viene token:
             localStorage.setItem("token", data.token)
+            localStorage.setItem("logeado", 'true')
 
             goto('/internal/admin-apice-panel/panel')
 

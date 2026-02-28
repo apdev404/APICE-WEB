@@ -25,6 +25,26 @@
 
   const disponibleTexto = disponible ? "Cupos disponibles" : "Cupos agotados";
   const disponibleColor = disponible ? "badge-success" : "badge-error";
+
+  type MembresiaDates = {
+    text: string,
+    bgColor: string,
+  };
+
+  const membresiasDates : Record<number, MembresiaDates>  = {
+    1: {
+      text: "Esencial+",
+      bgColor: "greenLight"
+    },
+    2: {
+      text: "Profesional+",
+      bgColor: "greenLight"
+    },
+    3: {
+      text: "Corporativo+",
+      bgColor: "greenLight"
+    }
+  }
 </script>
 
 
@@ -46,7 +66,7 @@
       {cap.categoria}
     </div>
 
-    <h2 class="text-lg font-bold text-primary mt-2">{cap.capacitacion}</h2>
+    <h2 class="line-clamp-2 text-xl font-bold min-h-[3.5rem] text-lg font-bold text-primary mt-2">{cap.capacitacion}</h2>
 
     <p class="text-gray-600 text-sm">
       Dictado por <span class="font-semibold">{cap.consultor}</span>
@@ -57,10 +77,33 @@
       <div class="badge badge-outline">{cap.modalidad}</div>
     </div>
 
-    <div class="mt-3">
-      <span class={"badge badge-lg " + disponibleColor}>
-        {disponibleTexto}
-      </span>
+    <div class="mt-3 flex">
+   
+      {#if cap.nivel_minimo > 0}
+       <div class="inline-flex items-stretch text-sm font-medium">
+
+        <!-- Parte izquierda -->
+        <span
+          class={`badge badge-lg rounded-l-xl rounded-r-none px-3 py-1 text-xs ${disponibleColor}`}
+        >
+          {disponibleTexto}
+        </span>
+
+        <!-- Parte derecha -->
+        <span
+          class={`badge badge-lg rounded-r-xl rounded-l-none px-3 py-1 ${
+            membresiasDates[cap.nivel_minimo].bgColor
+          }`}
+        >
+          {membresiasDates[cap.nivel_minimo].text}
+        </span>
+
+      </div>
+      {:else}
+        <span class={"badge badge-lg " + disponibleColor}>
+          {disponibleTexto}
+        </span>
+      {/if}
     </div>
 
    <div

@@ -216,7 +216,7 @@
 
       <div class="text-center mb-8">
         <h2 class="text-4xl font-bold text-primary">
-          Capacitaciones para miembros
+          Capacitaciones para Miembros
         </h2>
       </div>
 
