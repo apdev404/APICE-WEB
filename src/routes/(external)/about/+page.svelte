@@ -173,22 +173,57 @@
                 <div class="w-20 h-1 bg-secondary mx-auto mt-4"></div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {#each equipo as miembro}
-                    <div class="bg-whiteColor rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-                        <div class="h-48 bg-greenLight flex items-center justify-center">
-                            <svg class="w-20 h-20 text-whiteColor" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-                            </svg>
+                    <div class="group bg-whiteColor rounded-lg border border-whiteBGLite flex flex-col h-full transition-all duration-500 hover:shadow-xl hover:border-secondary/20">
+                        
+                        <div class="relative h-80 overflow-hidden bg-primary">
+                            {#if miembro.img_profile_url}
+                                <img 
+                                    src={miembro.img_profile_url} 
+                                    alt={miembro.nombre} 
+                                    class="w-full h-full object-cover object-top transition-all duration-700 grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105"
+                                />
+                            {:else}
+                                <div class="w-full h-full flex items-center justify-center bg-greenAP/10">
+                                    <svg class="w-16 h-16 text-greenAP/20" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            {/if}
+
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-primary/80 backdrop-blur-md text-whiteColor text-[9px] font-bold tracking-[0.2em] uppercase px-3 py-1.5 rounded-sm">
+                                    {miembro.especialidad || 'Consultor'}
+                                </span>
+                            </div>
                         </div>
-                        <div class="p-6">
-                            <h3 class="font-heading text-xl font-semibold text-primary mb-1">{miembro.nombre}</h3>
-                            <p class="text-secondary font-medium mb-3">{miembro.especialidad}</p>
-                            <p class="text-primaryFontColor text-sm mb-4 font-alternative">
-                                {miembro.descripcion}
+
+                        <div class="p-6 flex-grow flex flex-col">
+                            <div class="mb-4">
+                                <h3 class="font-heading text-xl font-bold text-primary tracking-tight group-hover:text-secondary transition-colors duration-300">
+                                    {miembro.nombre}
+                                </h3>
+                                <div class="w-8 h-[2px] bg-secondary mt-2 transition-all duration-500 group-hover:w-full"></div>
+                            </div>
+
+                            <p class="text-primaryFontColor/70 text-[13px] font-alternative leading-relaxed line-clamp-3 mb-6">
+                                {miembro.descripcion || 'Especialista en relaciones internacionales y consultoría estratégica.'}
                             </p>
-                            <div class="flex flex-wrap gap-2">
-                                    <span class="bg-greenLight/10 text-greenLight text-xs px-3 py-1 rounded-full">{miembro.titulo_academico}</span>
+                            
+                            <div class="mt-auto pt-4 border-t border-whiteBGLite flex items-end justify-between">
+                                <div class="flex flex-col gap-1">
+                                    <span class="text-[9px] text-secondary font-bold uppercase tracking-wider">Titulación</span>
+                                    <span class="text-[11px] font-medium text-primary font-heading uppercase italic">
+                                        {miembro.especialidad || 'Staff Ápice'}
+                                    </span>
+                                </div>
+                                
+                                <div class="text-primary/10 group-hover:text-secondary/30 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>

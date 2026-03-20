@@ -10,11 +10,19 @@
   
   <!-- Imagen del consultor -->
   <div class="h-64 bg-gray-200 overflow-hidden relative">
+  {#if consultor.img_profile_url}
     <img 
       src={consultor.img_profile_url} 
       alt={consultor.nombre} 
       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
     />
+    {:else}
+        <div class="w-full h-full flex items-center justify-center bg-greenAP/10">
+            <svg class="w-16 h-16 text-greenAP/20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+            </svg>
+        </div>
+    {/if}
     
     <!-- Estado de disponibilidad -->
     <div class="absolute top-4 left-4">
