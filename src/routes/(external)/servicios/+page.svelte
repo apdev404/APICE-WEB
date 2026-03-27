@@ -4,163 +4,114 @@
   import { consultoresService } from "$lib/services/consultoresService.js";
   import { showError } from "$lib/domain/errorHandler.js";
   import { debounce } from "$lib/utils/DebounceSearch.js";
-  import { Consultor } from "$lib/domain/consultor.js";
+  import type { Consultor } from "$lib/domain/consultor.js";
   import ButtonLink from "$lib/components/buttons/ButtonLink.svelte";
 
   const { data } = $props();
-  let consultores: Consultor[] = $state(data.consultores);
+  let consultores = $state<Consultor[]>(data.consultores);
   
-  async function buscarConsultores(text: string){
-    try{
-      consultores = await consultoresService.getConsultoresByText(text)
-
-    }catch(error){
-      showError("Ha ocurrido un error al buscar los consultores: ",error)
+  async function buscarConsultores(query: { text: string, categoriaId: string }) {
+    try {
+      consultores = await consultoresService.getConsultoresByText(query.text, query.categoriaId);
+    } catch (error) {
+      showError("Ha ocurrido un error al buscar los consultores: ", error);
     }
   }
 
-  const busquedaDebounceConsultores = debounce(buscarConsultores, 300)
-
+  const busquedaDebounceConsultores = debounce(buscarConsultores, 300);
 
   const servicios = [
-    {
-      icono: "ph ph-globe-hemisphere-west",
-      titulo: "Comercio Exterior",
-      texto:
-        "Asesoramiento experto para instituciones, empresas y gobiernos en temas de geopolítica, diplomacia y análisis internacional.",
-      link: "comExt"
-    },
-    {
-      icono: "ph ph-chalkboard-teacher",
-      titulo: "Diplomacia Corporativa",
-      texto:
-        "Programas formativos personalizados, adaptados a las necesidades de cada equipo o institución.",
-      link: "dipCorpo"
-    },
-    {
-      icono: "ph ph-handshake",
-      titulo: "Relaciones internacionales",
-      texto:
-        "Entrenamiento y acompañamiento en procesos de negociación multilateral y diplomática.",
-      link: "relIntern"
-    },
-    {
-      icono: "ph ph-briefcase",
-      titulo: "Analisis geopolitico",
-      texto:
-        "Acompañamiento integral en estrategias de exportación, competitividad y acuerdos comerciales.",
-      link: "anGeo"
-    },
-    {
-      icono: "ph ph-briefcase",
-      titulo: "Capacitaciones y Formacion Empresarial",
-      texto:
-        "Accede a nuestras capacitaciones con nuestras membresias",
-      link: "capFormEmpre"
-    }
+    { icono: "ph ph-globe-hemisphere-west", titulo: "Comercio Exterior", texto: "Asesoramiento experto para instituciones y empresas en temas de geopolítica y diplomacia.", link: "comExt" },
+    { icono: "ph ph-chalkboard-teacher", titulo: "Diplomacia Corporativa", texto: "Programas formativos personalizados, adaptados a las necesidades de cada equipo.", link: "dipCorpo" },
+    { icono: "ph ph-handshake", titulo: "Relaciones internacionales", texto: "Entrenamiento y acompañamiento en procesos de negociación multilateral.", link: "relIntern" },
+    { icono: "ph ph-briefcase", titulo: "Análisis geopolítico", texto: "Acompañamiento integral en estrategias de exportación y competitividad.", link: "anGeo" },
   ];
 </script>
 
-<Section class="bg-primary text-white py-20 max-w-5xl mx-auto text-center px-6">
-    <h1 class="text-4xl md:text-5xl font-bold tracking-tight">
-      Nuestros Servicios
-    </h1>
-    <p class="mt-4 text-white/80 text-lg max-w-2xl mx-auto">
-      Brindamos soluciones profesionales en relaciones internacionales, análisis estratégico y formación especializada.
+<Section class="bg-primary text-whiteColor py-24 text-center">
+    <span class="text-secondary font-semibold tracking-widest uppercase text-sm">Soluciones Globales</span>
+    <h1 class="text-4xl md:text-6xl font-heading font-bold mt-2">Nuestros Servicios</h1>
+    <div class="w-24 h-1 bg-secondary mx-auto mt-6"></div>
+    <p class="mt-6 text-whiteColor/70 text-lg max-w-2xl mx-auto font-sans">
+      Brindamos soluciones profesionales en relaciones internacionales, análisis estratégico y formación especializada para el mundo de hoy.
     </p>
 </Section>
 
 <Section class="py-20 bg-whiteBGLite">
-  <div class="flex flex-col items-center">
-  <!--   
-   
-    <div class="dropdown dropdown-center mb-8">
-      <div tabindex="0" role="button" class="btn m-1 bg-secondary">Solicitar SERVICIO</div>
-      <ul tabindex="-1" class="dropdown-content menu bg-white rounded-box z-1 w-52 p-2 shadow-sm">
-        {#each servicios as s}
-          <li>
-            <a
-              class="flex items-center gap-3 px-4 py-2 rounded-lg 
-                    text-primary font-medium 
-                    hover:bg-secondary/10 hover:text-secondary 
-                    transition-all duration-200"
-            >
-              <i class={"ph ph-arrow-right text-secondary/70"}></i>
-              {s.titulo}
-            </a>
-          </li>
-        {/each}
-      </ul>
-    </div>
--->
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <!-- GRID -->
-      <div class="flex flex-col gap-4">
-        {#each servicios as s}
-         <div
-            class="group bg-white shadow-md hover:shadow-xl transition-all border border-gray-200 rounded-xl p-8 
-                  hover:-translate-y-1 cursor-default flex items-start gap-6"
-            id={s.link}
-          >
-            <!-- Icono -->
-            <div
-              class="w-16 h-16 shrink-0 rounded-xl bg-secondary/10 flex items-center justify-center
-                    group-hover:bg-secondary/20 transition-all"
-            >
-              <i class={"text-secondary text-4xl " + s.icono}></i>
-            </div>
-
-            <!-- Texto -->
-            <div class="flex flex-col text-left">
-              <h3 class="text-xl font-semibold text-primary">
-                {s.titulo}
-              </h3>
-
-              <p class="mt-2 text-gray-600 text-sm leading-relaxed text-justify">
-                {s.texto}
-              </p>
-            </div>
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {#each servicios as s (s.link)}
+        <div
+          class="group bg-whiteColor shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 rounded-2xl p-8 flex items-start gap-6"
+          id={s.link}
+        >
+          <div class="w-14 h-14 shrink-0 rounded-xl bg-primary text-secondary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <i class={s.icono + " text-3xl"}></i>
           </div>
 
-        {/each}
+          <div class="flex flex-col text-left">
+            <h3 class="text-xl font-heading font-bold text-primary group-hover:text-secondary transition-colors">
+              {s.titulo}
+            </h3>
+            <p class="mt-2 text-primaryFontColor/70 text-sm leading-relaxed">
+              {s.texto}
+            </p>
+          </div>
+        </div>
+      {/each}
+    </div>
+  </div>
+</Section>
+
+<section class="relative overflow-hidden bg-primary py-24">
+    <div class="absolute top-0 right-0 w-1/3 h-full bg-secondary/5 -skew-x-12 translate-x-1/2"></div>
+    
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <div class="flex flex-col lg:flex-row items-center gap-12">
+        <div class="lg:w-1/2 text-left">
+          <h2 class="text-secondary font-bold tracking-tight text-sm uppercase mb-3">Formación de Élite</h2>
+          <h1 class="text-4xl md:text-5xl font-heading font-bold text-whiteColor mb-6 leading-tight">
+            Potenciá tu Perfil con nuestras <span class="text-secondary">Capacitaciones</span>
+          </h1>
+          <p class="text-lg text-whiteColor/80 mb-8 leading-relaxed font-sans">
+            Programas dictados por expertos en relaciones internacionales, transformación digital y gestión estratégica. No solo enseñamos teoría, brindamos herramientas para el campo real.
+          </p>
+          
+          <div class="flex flex-wrap gap-4">
+            <ButtonLink tipo="primary" href="/capacitaciones" class="px-8 h-14 text-lg font-bold shadow-lg hover:shadow-secondary/20">
+              EXPLORAR CURSOS
+            </ButtonLink>
+            <ButtonLink tipo="secondary" href="/membresias" class="px-8 h-14 text-lg font-semibold border-whiteColor/20 text-whiteColor hover:bg-whiteColor/10">
+              VER MEMBRESÍAS
+            </ButtonLink>
+          </div>
+        </div>
+
+        <div class="lg:w-1/2 grid grid-cols-2 gap-4">
+          <div class="bg-whiteColor/5 p-6 rounded-2xl border border-whiteColor/10 backdrop-blur-sm">
+            <i class="ph ph-certificate text-secondary text-3xl mb-3"></i>
+            <h4 class="text-whiteColor font-bold">Certificación</h4>
+            <p class="text-whiteColor/50 text-xs mt-1">Validez internacional en cada programa.</p>
+          </div>
+          <div class="bg-whiteColor/5 p-6 rounded-2xl border border-whiteColor/10 backdrop-blur-sm mt-8">
+            <i class="ph ph-users-four text-secondary text-3xl mb-3"></i>
+            <h4 class="text-whiteColor font-bold">Networking</h4>
+            <p class="text-whiteColor/50 text-xs mt-1">Conectá con líderes del sector.</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</Section>
-
-<section class="bg-primary text-whiteColor py-20">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <h1 class="text-4xl md:text-5xl font-heading font-bold mb-6">
-        CAPACITACIONES
-      </h1>
-      <p class="text-xl text-whiteColor/80 max-w-3xl mx-auto leading-relaxed">
-        Programas de formación dictados por expertos en relaciones internacionales, transformación digital y gestión estratégica.
-      </p>
-    </div>
 </section>
 
-<Section class="py-12 bg-whiteBGLite">
-  <div class="flex flex-col items-center justify-center text-center gap-6 ">
-        <ButtonLink tipo="primary" href="/capacitaciones" class="mt-2 h-20 text-2xl content-center">
-          ACCEDER A CAPACITACIONES
-        </ButtonLink>
-    
-        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-primary max-w-2xl">
-          Accedé a las capacitaciones con nuestras membresías
-        </h1>
-
-        <p class="text-gray-500 max-w-xl">
-          Elegí el plan que mejor se adapta a tu objetivo y empezá hoy mismo a potenciar tu estrategia internacional.
-        </p>
-
-        <ButtonLink tipo="secondary" href="/membresias" class="mt-2">
-          Ver Membresías
-        </ButtonLink>
-  </div>
-</Section>
-
-<section id="consultores">
-  <Consultores consultores= {consultores}
-  on:buscaConsultores={(e)  => busquedaDebounceConsultores(e.detail)}
+  <Consultores 
+    {consultores} 
+    onSearch={(query) => busquedaDebounceConsultores(query)} 
   />
-</section>
+
+
+<style>
+  /* Ajuste suave para el scroll */
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+</style>

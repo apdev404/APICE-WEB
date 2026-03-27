@@ -1,22 +1,22 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
   import { type SelectOption } from "$lib/utils/filters.mapper";
 
-  let { filtros, titleFilter }: { filtros: SelectOption[], titleFilter: string } = $props();
+  let { filtros, titleFilter, onchange }: { 
+    filtros: SelectOption[], 
+    titleFilter: string,
+    onchange: (value: string) => void 
+  } = $props();
 
-  const dispatch = createEventDispatcher();
-
-  let value: string = '';
-
+  let value: string = $state(''); 
   function handleChange() {
-    dispatch("change", value);
+    onchange(value);
   }
 </script>
 
 <div class="flex justify-center my-6">
   <select
     bind:value={value}
-    on:change={handleChange}
+    onchange={handleChange} 
     class="select bg-primary text-whiteColor border border-secondary 
            rounded-lg px-4 py-2 
            focus:outline-none focus:ring-2 focus:ring-secondary
@@ -24,7 +24,7 @@
   >
     <option value="">{titleFilter}</option>
 
-    {#each filtros as filtro}
+    {#each filtros as filtro (filtro.value)}
       <option
         value={filtro.value}
         class="bg-primary text-whiteColor"

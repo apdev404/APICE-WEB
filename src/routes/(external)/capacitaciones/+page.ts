@@ -4,13 +4,16 @@ import type { PageLoad } from './$types'
 
 export const load : PageLoad = async ({ depends }) => {
   try {
-    depends('capacitaciones:list')
-    const capacitaciones: Capacitacion[] = await capacitacionesService.getCapacitaciones() 
-    return { capacitaciones }
+    depends('capacitacionesLibres:list')
+    depends('capacitacionesMiembros:list')
+    const capacitacionesLibres: Capacitacion[] = await capacitacionesService.getCapacitacionesLibres() 
+    const capacitacionesMiembros: Capacitacion[] = await capacitacionesService.getCapacitacionesMiembros() 
+    return { capacitacionesLibres, capacitacionesMiembros }
   } catch (error) {
     console.error('Error cargando capacitaciones:', error)
     return {
-      capacitaciones: []
+      capacitacionesLibres: [],
+      capacitacionesMiembros: []
     }
   }
 }

@@ -16,8 +16,8 @@ class ConsultorService{
 
 
 
-    async getConsultoresByText(text: string){
-        const response = ()=> axios.get<ConsultorJSON[]>(REST_SERVER_URL+'/consultores/search?text='+text)
+    async getConsultoresByText(text: string, categoriaId: string){
+        const response = ()=> axios.get<ConsultorJSON[]>(REST_SERVER_URL+'/consultores/search?text='+text+'&categoriaId='+categoriaId)
         return (await getAxiosData(response)).map(Consultor.fromJson)
     }
 }
