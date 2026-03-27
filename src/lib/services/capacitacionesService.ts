@@ -16,17 +16,25 @@ class CapacitacionesService{
     }
 
 
-    async getCapacitacionesByText(filtros: Partial<CapacitacionSearchParams>) {
+    async getCapacitacionesByText(filtros: Partial<CapacitacionSearchParams>): Promise<Capacitacion[]> {
         const params = new URLSearchParams();
+
         if (filtros.text) params.append('text', filtros.text);
         if (filtros.categoriaId) params.append('categoriaId', filtros.categoriaId);
         if (filtros.modalidad) params.append('modalidad', filtros.modalidad);
         if (filtros.order) params.append('order', filtros.order);
-
-        const response = () => axios.get<CapacitacionJSON[]>(`${REST_SERVER_URL}/capacitaciones/search?${params.toString()}`);
         
-        return (await getAxiosData(response)).map(Capacitacion.fromJson);
+        if (filtros.soloLibres !== undefined) {
+            params.append('soloLibres', String(filtros.soloLibres));
+        }
+
+        const url = `${REST_SERVER_URL}/capacitaciones/search?${params.toString()}`;
+        const response = () => axios.get<CapacitacionJSON[]>(url);
+        
+        const data = await getAxiosData(response);
+        return data.map((json: CapacitacionJSON) => Capacitacion.fromJson(json));
     }
+    
 
     async getCapacitacionessById(text: string){
         const response = ()=> axios.get<CapacitacionDetalleJSON>(REST_SERVER_URL+'/capacitaciones/'+text)

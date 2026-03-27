@@ -8,7 +8,7 @@
 
     interface CapaSearchParams {
         text: string;
-        tipo: 'libres' | 'miembros';
+        onlyFree: boolean;
         categoriaId: string;
         modalidad: string;   
     }
@@ -37,10 +37,14 @@
     ];
 
     function handleSearch(params: BundleParams): void {
-        onBusca({ 
-            ...params, 
-            tipo: 'libres' 
-        });
+        const filtrosFinales: CapaSearchParams = {
+        text: params.text || "",
+        categoriaId: (params.categoriaId as string) || "",
+        modalidad: (params.modalidad as string) || "",
+        onlyFree: true
+        };
+
+        onBusca(filtrosFinales);
     }
 </script>
 

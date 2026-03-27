@@ -3,6 +3,7 @@ import {type BaseSearchParams } from "./BaseSearchParams";
 
 export interface CapacitacionSearchParams extends BaseSearchParams {
   modalidad: Modalidades | ''
+  soloLibres?: boolean; 
 }
 
 

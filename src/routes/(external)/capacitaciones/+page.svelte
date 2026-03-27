@@ -9,7 +9,7 @@
 
   interface CapaSearchParams {
     text: string;
-    tipo: 'libres' | 'miembros';
+    onlyFree: boolean;
     categoriaId: string;
     modalidad: string | Modalidades;
   }
@@ -29,13 +29,14 @@
       const resultado = await capacitacionesService.getCapacitacionesByText({
         text: filtros.text,
         categoriaId: filtros.categoriaId,
-        modalidad: filtros.modalidad as Modalidades 
+        modalidad: filtros.modalidad as Modalidades,
+        soloLibres: filtros.onlyFree 
       });
 
-      if (filtros.tipo === 'libres') {
-        capacitacionesLibres = resultado.filter(c => c.nivel_minimo === 0);
+      if (filtros.onlyFree) {
+        capacitacionesLibres = resultado;
       } else {
-        capacitacionesMiembros = resultado.filter(c => c.nivel_minimo > 0);
+        capacitacionesMiembros = resultado;
       }
 
     } catch (error) {
@@ -53,6 +54,7 @@
   capacitaciones={capacitacionesLibres}
   onBusca={(f: CapaSearchParams) => busquedaDebounce(f)} 
 />
+
 
 <CapacitacionesMiembros
   capacitaciones={capacitacionesMiembros}
